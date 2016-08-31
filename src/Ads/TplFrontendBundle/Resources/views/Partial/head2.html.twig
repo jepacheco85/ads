@@ -1,0 +1,49 @@
+<!-- /.header -->
+    <div class="search-row-wrapper" style="background-image: url({{ asset('assets/images/bg.jpg') }});">
+        <div class="container ">
+            <form action="{{ path('announces_search_category_location') }}" method="POST">
+                {#<div class="col-sm-3">
+                    <input class="form-control keyword" type="text" placeholder="e.g. Mobile Sale" name="announce">
+                </div>#}
+                
+                <div class="col-sm-3">
+                    <select class="form-control selecter" name="category" id="search-category">
+                        <option selected="selected" value="">All Categories</option>
+                        {% for category in categories %}
+                        <option value="{{ category.slug }}" style="background-color:#E9E9E9;font-weight:bold;" disabled="disabled">
+                            {{ category.name }}
+                        </option>
+                        {% if subcategories %}
+                            {% for subcategory in subcategories %}
+                               {% if subcategory.category == category.name %}
+                                  <option value="{{ subcategory.subcategoryId }}"> {{ subcategory.name }} </option>
+                               {% endif %}
+                            {% endfor %}
+                        {% endif %}  
+                        {% endfor %}
+                    </select>
+                </div>
+                    
+                <div class="col-sm-3">
+                     <select class="form-control selecter" name="locality" id="search-category">
+                                                 <option selected="selected" value="">All Locations</option>
+                                                    {% for state in states %}
+                                                    <option name="state" value="{{ state.Id }}" style="background-color:#E9E9E9;font-weight:bold;" disabled="disabled">
+                                                        {{ state.name }}
+                                                    </option>
+                                                    {% if localities %}
+                                                        {% for locality in localities %}
+                                                           {% if locality.state.name == state.name %}
+                                                              <option value="{{ locality.Id }}"> {{ locality.name }} </option>
+                                                           {% endif %}
+                                                        {% endfor %}
+                                                    {% endif %}  
+                                                    {% endfor %}
+                                                </select> 
+                </div>
+                <div class="col-sm-3">
+                    <button type="submit" class="btn btn-block btn-primary"><i class="fa fa-search"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>

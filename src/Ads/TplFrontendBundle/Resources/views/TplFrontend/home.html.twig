@@ -1,0 +1,23 @@
+{% extends 'TplFrontendBundle::page-default.html.twig' %}
+
+{# Redefinir el titulo de la pagina #}
+{% block title %}Home | {{ parent() }}{% endblock title %}
+
+
+{% block bodyClasses %}{{ parent() }} home{% endblock bodyClasses %}
+
+{# Definir el contenido especifico de la pagina #}
+{% block pageDefaultContent %}
+    {{ parent() }}
+    
+    {# Incluir en la pagina el template del topbar #}
+    {% include 'TplFrontendBundle:Partial:head.html.twig' %}
+    
+    {# Incluir en la pagina el template del topbar #}
+    {% include 'TplFrontendBundle:Announce:announce-categories.html.twig' %}
+
+{% endblock pageDefaultContent %}
+
+{% block javascripts %}
+{{ parent() }}
+{% endblock javascripts %}

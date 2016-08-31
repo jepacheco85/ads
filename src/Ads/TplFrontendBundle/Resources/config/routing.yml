@@ -1,0 +1,13 @@
+tpl_frontend_homepage:
+    path:     /
+    defaults: { _controller: TplFrontendBundle:TplFrontend:home }  
+    
+pagina_estatica:
+    path: /ads/{page}
+    defaults: { _controller: TplFrontendBundle:TplFrontend:estatica }  
+    
+tpl_frontend_estatic:
+    path: /ads/{page}/
+    defaults: { _controller: TplFrontendBundle:TplFrontend:estatica }     
+    
+     

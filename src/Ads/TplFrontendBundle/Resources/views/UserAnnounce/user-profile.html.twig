@@ -1,0 +1,166 @@
+{% extends 'TplFrontendBundle::page-default.html.twig' %}
+
+{# Redefinir el titulo de la pagina #}
+{% block title %}Sigup | {{ parent() }}{% endblock title %}
+
+{% block bodyClasses %}{{ parent() }} home{% endblock bodyClasses %}
+
+{% block pageDefaultContent %}
+  {{ parent() }} 
+  
+  <div class="main-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 page-sidebar">
+                    <aside>
+                       
+                    {# Incluir en la pagina el template del topbar #}
+                    {% include 'TplFrontendBundle:UserAnnounce:user-lateral-menu.html.twig' %}
+
+                    </aside>
+                </div>
+                <!--/.page-sidebar-->
+
+                <div class="col-sm-9 page-content">
+                    <div class="inner-box">
+                        <div class="row">
+                            <div class="col-md-5 col-xs-4 col-xxs-12">
+                                <h3 class="no-padding text-center-480 useradmin"><a href="">
+                                        {% if app.user.avatar == null %}
+                                          <img class="userImg" src="{{ asset('assets/images/user.jpg') }}" alt="user"> {{ app.user.name }} {{ app.user.lastname }}
+                                        {% else %}
+                                          <img class="userImg" src="{{ asset('bundles/uploads/users/') }}{{ app.user.avatar }}" alt="user"> {{ app.user.name }} {{ app.user.lastname }}
+                                        {% endif %}
+                                </a></h3>
+                            </div>
+                            <div class="col-md-7 col-xs-8 col-xxs-12">
+                                <div class="header-data text-center-xs">
+
+                                    <!-- Traffic data -->
+                                    <div class="hdata">
+                                        <div class="mcol-left">
+                                            <!-- Icon with red background -->
+                                            <i class="fa fa-eye ln-shadow"></i></div>
+                                        <div class="mcol-right">
+                                            <!-- Number of visitors -->
+                                            <p><a href="#">7000</a> <em>visits</em></p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                    <!-- revenue data -->
+                                    <div class="hdata">
+                                        <div class="mcol-left">
+                                            <!-- Icon with green background -->
+                                            <i class="icon-th-thumb ln-shadow"></i></div>
+                                        <div class="mcol-right">
+                                            <!-- Number of visitors -->
+                                            <p><a href="#">12</a><em>Ads</em></p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                    <!-- revenue data -->
+                                    <div class="hdata">
+                                        <div class="mcol-left">
+                                            <!-- Icon with blue background -->
+                                            <i class="fa fa-user ln-shadow"></i></div>
+                                        <div class="mcol-right">
+                                            <!-- Number of visitors -->
+                                            <p><a href="#">18</a> <em>Favorites </em></p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="inner-box">
+                        <div class="welcome-msg">
+                            <h3 class="page-sub-header2 clearfix no-padding">Hello {{ app.user.name }} {{ app.user.lastname }} </h3>
+                            <span class="page-sub-header-sub small">You last logged in at: 01-01-2014 12:40 AM [UK time (GMT + 6:00hrs)]</span>
+                            {% for flashMessage in app.session.flashbag.get('info') %}
+                              <p class="alert alert-info">{{ flashMessage }}</p>
+                            {% endfor %}
+                        </div>
+                        <div id="accordion" class="panel-group">
+                            
+   {# Incluir en la pagina el template del topbar #}
+   {% render(controller('UserBundle:Crud:userEditDetails')) %}                            
+                            
+   {# Incluir en la pagina el template del topbar #}
+   {% render(controller('UserBundle:Crud:userEditAddress')) %} 
+   
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a href="#collapseB3" data-toggle="collapse"> Settings </a>
+                                    </h4>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseB3">
+                                    <div class="panel-body">
+                                        <form action="{{ path('user_profile_edit_pass') }}" method="POST" class="form-horizontal" role="form">                                            
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">New Password</label>
+
+                                                <div class="col-sm-9">
+                                                    <input type="password" class="form-control" placeholder="" name="pass">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Confirm Password</label>
+
+                                                <div class="col-sm-9">
+                                                    <input type="password" class="form-control" placeholder="" name="confirm">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-offset-3 col-sm-9">
+                                                    <button type="submit" class="btn btn-default">Update</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>                               
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a href="#collapseB4" data-toggle="collapse">
+                                        Preferences </a></h4>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseB4">
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox">
+                                                        I want to receive newsletter. </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox">
+                                                        I want to receive advice on buying and selling. </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/.row-box End-->
+
+                    </div>
+                </div>
+                <!--/.page-content-->
+            </div>
+            <!--/.row-->
+        </div>
+        <!--/.container-->
+    </div>
+    <!-- /.main-container -->  
+ 
+{% endblock pageDefaultContent %}  
+
+
+

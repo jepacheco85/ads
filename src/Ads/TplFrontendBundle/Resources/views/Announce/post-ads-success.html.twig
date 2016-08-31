@@ -1,0 +1,33 @@
+{% extends 'TplFrontendBundle::page-default.html.twig' %}
+{# Redefinir el titulo de la pagina #}
+{% block title %}Post Ads | {{ parent() }}{% endblock title %}
+
+{% block pageDefaultContent %}
+  {{ parent() }}  
+   
+            <div class="row">
+                <div class="col-md-12 page-content">
+                    <div class="inner-box category-content">
+                        <div class="container">
+                            <div class="col-md-12" aling="center">
+                                <div class="alert alert-success pgray  alert-lg" role="alert">
+                                    <h2 class="no-margin no-padding">&#10004; Felicidades! Su anuncio ha sido creado satisfactoriamente.</h2>
+
+                                    <p>Enhorabuena hemos creado un usuario con sus datos, le recomendamos que visite su perfil para que los actualices. </p>
+                                    <p>Debido a que en estos momento su contrasenna fue generada automaticamente con su nombre. </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.page-content -->
+
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container -->
+      
+    
+    {# Incluir en la pagina el template del topbar #}
+    {% include 'TplFrontendBundle:Announce:announce-details-partial.html.twig' %}
+  
+{% endblock pageDefaultContent %}              

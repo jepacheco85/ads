@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+    <head>
+        <meta charset="UTF-8"/>
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no"/>
+  	<meta name="description" content="{% block pageDescription %}Template basico para la generacion de vistas{% endblock %}">
+  	<meta name="author" content="jepacheco85@gmail.com">    
+        
+        <title>{% block title %}Base Template!{% endblock %}</title> 
+
+        {% block stylesheets %}
+           <!-- Bootstrap core CSS -->
+           <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"> 
+
+           <!-- styles needed for carousel slider -->
+           <link href="{{ asset('assets/css/owl.carousel.css') }}" rel="stylesheet" type="text/css">
+           <link href="{{ asset('assets/css/owl.theme.css') }}" rel="stylesheet" type="text/css">
+        {% endblock %}
+
+        {# Adicionando un bloque para incluir la configuracion del RequireJS #}
+	  {% block requirejs %}{% endblock requirejs %}
+
+	  {% block header_javascript %}
+	    
+	  {% endblock header_javascript %}
+
+          <!-- Fav and touch icons -->
+    	  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('assets/ico/apple-touch-icon-144-precomposed.png') }}">
+    	  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('assets/ico/apple-touch-icon-114-precomposed.png') }}">
+    	  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('assets/ico/apple-touch-icon-72-precomposed.png') }}">
+    	  <link rel="apple-touch-icon-precomposed" href="{{ asset('ico/apple-touch-icon-57-precomposed.png') }}">
+    	  <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+    </head>
+
+
+    <body class="{% block bodyClasses %}{% endblock bodyClasses %}">
+	{% set locale = app.request.locale %}
+
+	{% block body %}{% endblock body %}
+
+        {# Bloque de archivos Javascript que pueden ser agregados de forma independiente a la app #}
+        {% block javascripts %}
+        <!-- Just for debugging purposes. -->
+    	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        <!-- include pace script for automatic web page progress bar  -->
+
+	    <script>
+		paceOptions = {
+		    elements: true
+		};
+	    </script>
+	    <script src="{{ asset('assets/js/pace.min.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>

@@ -1,0 +1,190 @@
+{% extends 'TplFrontendBundle::page-default.html.twig' %}
+
+{# Redefinir el titulo de la pagina #}
+{% block title %}Sigup | {{ parent() }}{% endblock title %}
+
+{% block stylesheets %}
+  {{ parent() }} 
+  
+{% endblock stylesheets %}
+
+{% block bodyClasses %}{{ parent() }} home{% endblock bodyClasses %}
+
+{% block pageDefaultContent %}
+  {{ parent() }} 
+ 
+ <div class="main-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 page-content">
+                    <div class="inner-box category-content">
+                        <h2 class="title-2"><i class="icon-user-add"></i> Create your account, Its free 
+                        
+                            {% for flashMessage in app.session.flashbag.get('info') %}
+                              <p class="info">{{ flashMessage }}</p>
+                            {% endfor %}
+                        </h2>    
+                        <div class="row">
+                            <div class="col-sm-12">
+                              {#<form action="{{ path('user_sigup') }}" method="post" class="form-horizontal" {{ form_enctype(form) }}>#}
+                               {{ form_start(form, {'action': path('user_sigup'), 'method': 'POST'}) }}  
+                                    <fieldset>
+                                        <div class="form-group required">
+                                            <label class="col-md-4 control-label">You are a <sup>*</sup></label>
+
+                                            <div class="col-md-6">
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="optionsRadios" id="optionsRadios1"
+                                                               value="option1" checked>
+                                                        Professional </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="optionsRadios" id="optionsRadios2"
+                                                               value="option2">
+                                                        Individual </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Text input-->
+                                        <div class="form-group required">
+                                            <label class="col-md-4 control-label">First Name <sup>*</sup></label>
+                                            <div class="col-md-6">
+                                                {{ form_widget(form.name, {'attr':{'class': 'form-control input-md', 'placeholder': 'First Name' }} ) }}
+                                            </div>
+                                        </div>
+
+                                        <!-- Text input-->
+                                        <div class="form-group required">
+                                            <label class="col-md-4 control-label">Last Name <sup>*</sup></label>
+                                            <div class="col-md-6">
+                                                {{ form_widget(form.lastname, {'attr':{'class': 'form-control input-md', 'placeholder': 'Last Name' }} ) }}
+                                            </div>
+                                        </div>
+
+                                        <!-- Text input-->
+                                        <div class="form-group required">
+                                            <label class="col-md-4 control-label">Phone Number <sup>*</sup></label>
+                                            <div class="col-md-6">
+                                                {{ form_widget(form.cel, {'attr':{'class': 'form-control input-md', 'placeholder': 'Phone Number' }} ) }}                                               
+                                            </div>
+                                        </div>
+
+                                        <!-- Multiple Radios -->
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Gender</label>
+
+                                            <div class="col-md-6">
+                                                <div class="radio">
+                                                    {{ form_widget(form.sex) }}                                               
+                                                </div>
+                                            </div>
+                                        </div>                                  
+
+                                        <!-- Textarea -->
+                                        
+                                        <div class="form-group required">
+                                            <label for="inputEmail3" class="col-md-4 control-label">Email
+                                                <sup>*</sup></label>
+
+                                            <div class="col-md-6">
+                                                {{ form_widget(form.email) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group required">
+                                            <label for="inputPassword3" class="col-md-4 control-label">Password </label>
+
+                                            <div class="col-md-6">
+                                                <input type="password" class="form-control" placeholder="Password"
+                                               id="user-pass" name="pass">
+
+                                                <p class="help-block">At least 6 characters
+                                                    <!--Example block-level help text here.--></p>
+                                            </div>
+                                        </div>
+                                            
+                                        <div class="form-group">
+                                            <label for="avatar" class="col-md-4 control-label">Password </label>
+
+                                             <div class="col-md-8">
+                                                    <div class="mb10">
+                                                        {#<input type="file" id="ads_announcebundle_announcetype_imagenes_0"  name="ads_announcebundle_announcetype[imagenes][0]" class="file" data-preview-file-type="text"/> #}                  
+                                                        {{ form_widget(form.avatar, {'attr':{'class':'file' }}) }}
+                                                    </div>   
+                                             </div>
+                                        </div>  
+                                            
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label"></label>
+
+                                            <div class="col-md-8">
+                                                <div class="termbox mb10">
+                                                    <label class="checkbox-inline" for="checkboxes-1">
+                                                        <input name="checkboxes" id="checkboxes-1" value="1"
+                                                               type="checkbox">
+                                                        {# form_widget(form.acepto) #} 
+                                                        I have read and agree to the <a href="terms-conditions.html">Terms
+                                                        & Conditions</a> </label>
+                                                </div>
+                                                <div style="clear:both"></div>
+                                                <input name="Button" type="submit" class="btn btn-primary" value="Register" /></div>
+                                        </div>
+                                    </fieldset>
+                                         
+                                {{ form_rest(form) }}
+                              {{ form_end(form) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.page-content -->
+
+                <div class="col-md-4 reg-sidebar">
+                    <div class="reg-sidebar-inner text-center">
+                        <div class="promo-text-box"><i class=" icon-picture fa fa-4x icon-color-1"></i>
+
+                            <h3><strong>Post a Free Classified</strong></h3>
+
+                            <p> Post your free online classified ads with us. Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit. </p>
+                        </div>
+                        <div class="promo-text-box"><i class=" icon-pencil-circled fa fa-4x icon-color-2"></i>
+
+                            <h3><strong>Create and Manage Items</strong></h3>
+
+                            <p> Nam sit amet dui vel orci venenatis ullamcorper eget in lacus.
+                                Praesent tristique elit pharetra magna efficitur laoreet.</p>
+                        </div>
+                        <div class="promo-text-box"><i class="  icon-heart-2 fa fa-4x icon-color-3"></i>
+
+                            <h3><strong>Create your Favorite ads list.</strong></h3>
+
+                            <p> PostNullam quis orci ut ipsum mollis malesuada varius eget metus.
+                                Nulla aliquet dui sed quam iaculis, ut finibus massa tincidunt.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.main-container -->
+    
+    {# Incluir en la pagina el template Page Info #}
+    {% include 'TplFrontendBundle:Partial:pageinfo.html.twig' %}
+  
+{% endblock pageDefaultContent %} 
+
+{% block javascripts %}
+  {{ parent() }}
+<!-- Le javascript
+================================================== -->
+ <!-- include jquery file upload plugin  -->
+<script src="{{ asset('assets/js/fileinput.min.js') }}" type="text/javascript"></script>
+
+
+
+{% endblock javascripts %}

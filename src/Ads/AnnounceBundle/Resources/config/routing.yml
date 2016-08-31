@@ -1,0 +1,36 @@
+announce_homepage:
+    path:     /
+    defaults: { _controller: AnnounceBundle:Default:index }
+    
+announces_list:
+    path:     /announces/subcategory/{subcategory}
+    defaults: { _controller: AnnounceBundle:Announce:announceSubCatList }
+    
+announce_details:
+    pattern:    /announce/details/{id}
+    defaults:    { _controller: AnnounceBundle:Announce:announceDetails }  
+
+announce_post_ads:
+    path:     /post-announce
+    defaults: { _controller: AnnounceBundle:Announce:postAds } 
+
+announce_post_ads_success:
+    path:     /post-announce-success/{id}
+    defaults: { _controller: AnnounceBundle:Announce:postAdsSuccess } 
+
+announce_post_ads_success_log:
+    path:     /post-announce-success-log/{id}
+    defaults: { _controller: AnnounceBundle:Announce:postAdsSuccessLog } 
+    
+announces_list_location:
+    path:     /announces/locality/{locality}
+    defaults: { _controller: AnnounceBundle:Announce:announceLocationList } 
+    
+announces_search_category_location:
+    path:     /announces/search
+    defaults: { _controller: AnnounceBundle:Announce:searchCategoryLocality }
+    
+announces_search_price:
+    path:     /announces/search/price
+    defaults: { _controller: AnnounceBundle:Announce:searchPrice }      
+    

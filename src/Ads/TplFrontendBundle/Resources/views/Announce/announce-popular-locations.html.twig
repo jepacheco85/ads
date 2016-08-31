@@ -1,0 +1,21 @@
+<div class="col-md-6">
+    <div>
+        <h3 class="title-2"><i class="icon-location-2"></i> Popular locations </h3>
+
+        <div class="row">
+            <ul class="cat-list col-xs-6">
+                {% for locality in locations %}
+                  <li><a href="{{ path('announces_list_location', {'locality': locality.id }) }}"> {{ locality.name }} ({{ locality.cant }}) </a></li>             
+                {% endfor %}
+            </ul>
+             <ul class="cat-list col-xs-6">
+                {% for locality in locations2 %}
+                  <li><a href="{{ path('announces_list_location', {'locality': locality.id }) }}"> {{ locality.name }} ({{ locality.cant }}) </a></li>             
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+</div>
+                
+         

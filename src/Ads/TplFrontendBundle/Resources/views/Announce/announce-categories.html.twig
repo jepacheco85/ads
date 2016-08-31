@@ -1,0 +1,141 @@
+<div class="main-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 page-content col-thin-right">
+                <div class="inner-box category-content">
+                    <h2 class="title-2">Find Classified Ads World Wide                        
+                        {% for flashMessage in app.session.flashbag.get('info') %}
+                             <p class="info">{{ flashMessage }}</p>
+                        {% endfor %}
+                    </h2>
+                    <div class="row">  
+                            {% for category in categories %}
+                        <div class="col-md-4 col-sm-4">                                
+                            <div class="cat-list">                                    
+                                    <h3 class="cat-title">
+                                        <a href="category.html"><i class="{{ category.icon }} ln-shadow">
+                                           </i>{{ category.name }} <span class="count">277,959</span>
+                                        </a>
+                                        <span data-target=".cat-id-1" data-toggle="collapse"
+                                              class="btn-cat-collapsed collapsed">   <span
+                                                class=" icon-down-open-big"></span> </span>
+                                    </h3>
+                                    {% if subcategories %}
+                                    <ul class="cat-collapse collapse in cat-id-1">
+                                        {% for subcategory in subcategories %}
+                                           {% if subcategory.category == category.name %}
+                                        <li><a href="{{ path('announces_list', {'subcategory': subcategory.slug }) }}">{{ subcategory.name }}</a></li>  
+                                           {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                     {% endif %}                                    
+                            </div>                                      
+                        </div>           
+                            {% endfor %}                     
+                    </div>
+                </div>
+{% block featuredContent %}
+   
+   {# Incluir en la pagina el template del topbar #}
+   {% render(controller('AnnounceBundle:Announce:announceFeatured')) %}
+
+{% endblock featuredContent %}
+
+{% block popularContent %}
+   
+   {# Incluir en la pagina el template del topbar #}
+   {% include 'TplFrontendBundle:Announce:announce-popular.html.twig' %}
+
+{% endblock popularContent %}
+                   
+                </div>
+{% block popularCategoriesContent %}
+   
+   {# Incluir en la pagina el template del topbar #}
+   {% render(controller('AnnounceBundle:Category:categoriesPopular')) %}
+
+{% endblock popularCategoriesContent %}               
+            </div>
+        </div>
+    </div>
+    <!-- /.main-container -->
+    
+    <div class="page-info hasOverly" style="background: url(images/bg.jpg); background-size:cover">
+        <div class="bg-overly ">
+            <div class="container text-center section-promo">
+                <div class="row">
+                    <div class="col-sm-3 col-xs-6 col-xxs-12">
+                        <div class="iconbox-wrap">
+                            <div class="iconbox">
+                                <div class="iconbox-wrap-icon">
+                                    <i class="icon  icon-group"></i>
+                                </div>
+                                <div class="iconbox-wrap-content">
+                                    <h5><span>2200</span></h5>
+
+                                    <div class="iconbox-wrap-text">Trusted Seller</div>
+                                </div>
+                            </div>
+                            <!-- /..iconbox -->
+                        </div>
+                        <!--/.iconbox-wrap-->
+                    </div>
+
+                    <div class="col-sm-3 col-xs-6 col-xxs-12">
+                        <div class="iconbox-wrap">
+                            <div class="iconbox">
+                                <div class="iconbox-wrap-icon">
+                                    <i class="icon  icon-th-large-1"></i>
+                                </div>
+                                <div class="iconbox-wrap-content">
+                                    <h5><span>100</span></h5>
+
+                                    <div class="iconbox-wrap-text">Categories</div>
+                                </div>
+                            </div>
+                            <!-- /..iconbox -->
+                        </div>
+                        <!--/.iconbox-wrap-->
+                    </div>
+
+                    <div class="col-sm-3 col-xs-6  col-xxs-12">
+                        <div class="iconbox-wrap">
+                            <div class="iconbox">
+                                <div class="iconbox-wrap-icon">
+                                    <i class="icon  icon-map"></i>
+                                </div>
+                                <div class="iconbox-wrap-content">
+                                    <h5><span>700</span></h5>
+
+                                    <div class="iconbox-wrap-text">Location</div>
+                                </div>
+                            </div>
+                            <!-- /..iconbox -->
+                        </div>
+                        <!--/.iconbox-wrap-->
+                    </div>
+
+                    <div class="col-sm-3 col-xs-6 col-xxs-12">
+                        <div class="iconbox-wrap">
+                            <div class="iconbox">
+                                <div class="iconbox-wrap-icon">
+                                    <i class="icon icon-facebook"></i>
+                                </div>
+                                <div class="iconbox-wrap-content">
+                                    <h5><span>50,000</span></h5>
+
+                                    <div class="iconbox-wrap-text"> Facebook Fans</div>
+                                </div>
+                            </div>
+                            <!-- /..iconbox -->
+                        </div>
+                        <!--/.iconbox-wrap-->
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+  

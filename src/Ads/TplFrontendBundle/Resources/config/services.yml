@@ -1,0 +1,4 @@
+services:
+#    tpl_frontend.example:
+#        class: Ads\TplFrontendBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

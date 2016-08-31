@@ -1,0 +1,37 @@
+                  <div class="inner-box relative">
+                        <h2 class="title-2">Featured Listings
+
+                            <a id="nextItem" class="link  pull-right carousel-nav"> <i class="icon-right-open-big"></i></a>
+                            <a id="prevItem" class="link pull-right carousel-nav"> <i class="icon-left-open-big"></i>
+                            </a>
+
+                        </h2>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="no-margin item-carousel owl-carousel owl-theme">
+                                    {% for key, announce in announces %}
+                                    <div class="item"><a href="{{ path('announce_details', {'id': announce.announceid }) }}">
+                     <span class="item-carousel-thumb"> 
+                    	{% if announce.path == null %}
+                                <img class="img-responsive" src="{{ asset('bundles/uploads/announces/no_image.jpg') }}" alt="img">
+                                
+                        {% else %}
+                            <img class="img-responsive" src="{{ asset('bundles/uploads/announces/') }}{{ announce.path[0] }}" alt="img">
+                                  
+                        {% endif %}
+                     </span>
+                                        <span class="item-name"> {{ announce.title }}  </span>
+                                        <span class="price">  {{ announce.price }} </span>
+                                    </a>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                                
+                                
+                                    <!--/.photobox-->
+                    

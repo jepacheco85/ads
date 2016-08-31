@@ -1,0 +1,349 @@
+{% extends 'TplFrontendBundle::page-default.html.twig' %}
+
+{# Redefinir el titulo de la pagina #}
+{% block title %}Profile | {{ parent() }}{% endblock title %}
+
+{% block bodyClasses %}{{ parent() }} home{% endblock bodyClasses %}
+
+{% block pageDefaultContent %}
+  {{ parent() }} 
+
+    <div class="main-container inner-page">
+        <div class="container">
+            <div class="section-content">
+                <div class="inner-box ">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            {% if app.user == user %}
+                            <div class="seller-info seller-profile">
+                                <div class="seller-profile-img">
+                                    {% if user.avatar == null %}
+                                       <a><img src="{{ asset('assets/images/user.jpg') }}" class="img-responsive thumbnail" alt="img"> </a>
+                                    {% else %}
+                                       <a><img src='{{ asset('bundles/uploads/users/') }}{{ user.avatar }}' class="img-responsive thumbnail" alt="img"> </a> 
+                                    {% endif %}                                     
+                                </div>
+                                <h3 class="no-margin no-padding link-color uppercase "> {{ user.name }} {{ user.lastname }} </h3>
+
+                                <div class="text-muted">
+                                    99.8% positive Feedback
+                                </div>
+                                <div class="user-ads-action">
+                                    <a class="btn btn-sm   btn-default " data-toggle="modal"
+                                       href="#contactAdvertiser"><i class=" icon-mail-2"></i> Send a message</a>
+                                    <a class="btn btn-sm  btn-success "><i class=" icon-plus"></i> Follow </a>
+                                </div>
+
+                                <div class="seller-social-list">
+
+                                    <ul class="share-this-post">
+
+
+                                        <li><a class="google-plus"><i class="fa fa-google-plus"></i></a>
+                                        </li>
+                                        <li><a class="facebook"><i class="fa fa-facebook"></i></a>
+                                        </li>
+                                        <li><a><i class="fa fa-twitter"></i></a>
+                                        </li>
+                                        <li><a class="pinterest"><i class="fa fa-pinterest"></i></a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                                {% else %}
+                            <div class="seller-info seller-profile">
+                                <div class="seller-profile-img">
+                                    {% if user.avatar == null %}
+                                       <a><img src="{{ asset('assets/images/user.jpg') }}" class="img-responsive thumbnail" alt="img"> </a>
+                                    {% else %}
+                                       <a><img src="{{ asset('bundles/uploads/users/') }}{{ user.avatar }}" class="img-responsive thumbnail" alt="img"> </a> 
+                                    {% endif %} 
+                                </div>
+                                <h3 class="no-margin no-padding link-color uppercase "> {{ user.name }} {{ user.lastname }} </h3>
+
+                                <div class="text-muted">
+                                    99.8% positive Feedback
+                                </div>
+                                <div class="user-ads-action">
+                                    <a class="btn btn-sm   btn-default " data-toggle="modal"
+                                       href="#contactAdvertiser"><i class=" icon-mail-2"></i> Send a message </a>
+                                    <a class="btn btn-sm  btn-success "><i class=" icon-plus"></i> Follow </a>
+                                </div>
+
+                                <div class="seller-social-list">
+
+                                    <ul class="share-this-post">
+
+
+                                        <li><a class="google-plus"><i class="fa fa-google-plus"></i></a>
+                                        </li>
+                                        <li><a class="facebook"><i class="fa fa-facebook"></i></a>
+                                        </li>
+                                        <li><a><i class="fa fa-twitter"></i></a>
+                                        </li>
+                                        <li><a class="pinterest"><i class="fa fa-pinterest"></i></a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>        
+                           {% endif %} 
+
+                        </div>
+                        <div class="col-sm-6">
+
+                            <div class="seller-contact-info">
+
+                                <h3 class="no-margin uppercase color-danger"> Contact Information </h3>
+
+                                <dl class="dl-horizontal">
+                                    {% if user.addresses is empty %}
+                                    <dt>Locality:</dt>                                    
+                                    <dd class="contact-sensitive"> No definida
+                                    </dd>
+                                    <dt>Address:</dt>
+                                    <dd class="contact-sensitive"> No definida
+                                    </dd>
+                                    {% else %}
+                                     <dt>Locality:</dt>                                    
+                                    <dd class="contact-sensitive"> {{ user.addresses[0].locality }}
+                                    </dd>
+                                    <dt>Address:</dt>
+                                    <dd class="contact-sensitive"> {{ user.addresses[0].address }}
+                                    </dd>   
+                                    {% endif %}
+                                    <dt>Mobile Phone:</dt>
+                                    <dd class="contact-sensitive"> {{ user.cel }}</dd>                                    
+                                </dl>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="section-block">
+                    <div class="row">
+                        <div class="col-sm-9 col-thin-left page-content ">
+
+                            <div class="category-list">
+                                <div class="tab-box ">
+
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs add-tabs" role="tablist">
+                                        <li class="active"><a href="#allAds" role="tab" data-toggle="tab"> User all ads
+                                            <span class="badge">20</span></a></li>
+
+                                    </ul>
+                                    <div class="tab-filter">
+                                        <select class="selectpicker" data-style="btn-select" data-width="auto">
+                                            <option>Short by</option>
+                                            <option>Price: Low to High</option>
+                                            <option>Price: High to Low</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!--/.tab-box-->
+
+                                <div class="listing-filter">
+                                    <div class="pull-left col-xs-6">
+                                        <div class="breadcrumb-list"><a href="#" class="current">
+                                            <span>All ads</span></a> in New York <a href="#selectRegion"
+                                                                                    id="dropdownMenu1"
+                                                                                    data-toggle="modal"> <span
+                                                class="caret"></span> </a></div>
+                                    </div>
+                                    <div class="pull-right col-xs-6 text-right listing-view-action"><span
+                                            class="list-view active"><i class="  icon-th"></i></span> <span
+                                            class="compact-view"><i class=" icon-th-list  "></i></span> <span
+                                            class="grid-view "><i class=" icon-th-large "></i></span></div>
+                                    <div style="clear:both"></div>
+                                </div>
+                                <!--/.listing-filter-->
+
+
+                                <div class="adds-wrapper">
+                           {% if announces|length > 0 %}
+                               {% for announce in pagination %}
+                                <div class="item-list">
+                                    {% if announce.path == null %}
+                                    <div class="col-sm-2 no-padding photobox">
+                                        <div class="add-image"><span class="photo-count"><i class="fa fa-camera"></i> 0 </span> 
+                                            <a href="{{ path('announce_details', {'id': announce.announceid }) }}">
+                                                <img class="thumbnail no-margin" src="{{ asset('bundles/uploads/announces/no_image.jpg') }}" alt="img"></a></div>
+                                    </div>
+                                    {% else %}
+                                    <div class="col-sm-2 no-padding photobox">
+                                        <div class="add-image"><span class="photo-count"><i class="fa fa-camera"></i> {{ announce.path|length }}</span> 
+                                            <a href="{{ path('announce_details', {'id': announce.announceid }) }}">
+                                                <img class="thumbnail no-margin" src="{{ asset('bundles/uploads/announces/') }}{{ announce.path[0] }}" alt="img"></a></div>
+                                    </div>
+                                    {% endif %}
+                                    <!--/.photobox-->
+                                    <!--/.photobox-->
+                                    <div class="col-sm-7 add-desc-box">
+                                        <div class="add-details">
+                                            <h5 class="add-title"><a href="{{ path('announce_details', {'id': announce.announceid }) }}"> {{ announce.title }} </a></h5>
+                                            <span class="info-row"> <span class="add-type business-ads tooltipHere"
+                                                                          data-toggle="tooltip" data-placement="right"
+                                                                          title="Business Ads"> B </span> <span class="date"><i
+                                                    class=" icon-clock"> </i> {{ announce.post|date("d/m/Y") }} </span> - <span
+                                                    class="category"> {{ announce.subcategory.name }} </span>- <span class="item-location"><i
+                                                    class="fa fa-map-marker"></i> {{ announce.locality.name }} </span> </span></div>
+                                    </div>
+                                    <!--/.add-desc-box-->
+                                    <div class="col-sm-3 text-right  price-box">
+                                        <h2 class="item-price"> {{ announce.price }} </h2>
+                                        <a class="btn btn-danger  btn-sm make-favorite"> <i class="fa fa-certificate"></i>
+                                            <span>Top Ads</span> </a> <a class="btn btn-default  btn-sm make-favorite"> <i
+                                            class="fa fa-heart"></i> <span>Save</span> </a></div>
+                                    <!--/.add-desc-box-->
+                                </div>
+                                {% endfor %}
+                                {% else %}
+                                    <tr>
+                                          <th>There is not announce to show.</th>                                          
+                                    </tr>
+                                {% endif %}  
+                                <!--/.item-list-->
+                        </div>
+                        <!--/.adds-wrapper-->
+
+                                <div class="tab-box  save-search-bar text-center"><a href=""> <i class=" icon-plus"></i>
+                                    Follow User </a></div>
+                            </div>
+                            <div class="pagination-bar text-center">
+                                <ul class="pagination">
+                                    {{ knp_pagination_render(pagination) }}
+                                </ul>
+                            </div>
+                            <!--/.pagination-bar -->
+
+                            <div class="post-promo text-center">
+                                <h2> Do you get anything for sell ? </h2>
+                                <h5>Sell your products online FOR FREE. It's easier than you think !</h5>
+                                <a href="post-ads.html" class="btn btn-lg btn-border btn-post btn-danger">Post a Free
+                                    Ad </a></div>
+                            <!--/.post-promo-->
+
+                        </div>
+
+
+                        <div class="col-sm-3  page-sidebar-right">
+                            <aside>
+                                <div class="panel sidebar-panel panel-contact-seller">
+                                    <div class="panel-heading">Follwing <span class="badge">3</span>
+                                    </div>
+                                    <div class="panel-content user-info">
+                                        <div class="panel-body text-center">
+                                            <ul class="list-unstyled list-user-list">
+
+                                                <li><a><img alt="img" src="images/users/13.jpg"
+                                                            class="img-circle   "></a></li>
+                                                <li><a><img alt="img" src="images/users/9.jpg"
+                                                            class="img-circle   "></a></li>
+                                                <li><a><img alt="img" src="images/users/7.jpg"
+                                                            class="img-circle   "></a></li>
+                                            </ul>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel sidebar-panel panel-contact-seller">
+                                    <div class="panel-heading">Followers <span class="badge">81</span>
+                                    </div>
+                                    <div class="panel-content user-info">
+                                        <div class="panel-body text-center">
+                                            <ul class="list-unstyled list-user-list long-list-user">
+
+                                                <li><a><img alt="img" src="images/users/1.jpg"
+                                                            class="img-circle   "></a></li>
+                                                <li><a><img alt="img" src="images/users/2.jpg"
+                                                            class="img-circle   "></a></li>
+                                                <li><a><img alt="img" src="images/users/3.jpg"
+                                                            class="img-circle   "></a></li>
+                                                <li><a><img alt="img" src="images/users/4.jpg"
+                                                            class="img-circle   "></a></li>
+                                                <li><a><img alt="img" src="images/users/5.jpg"
+                                                            class="img-circle   "></a></li>
+                                                <li><a><img alt="img" src="images/users/6.jpg"
+                                                            class="img-circle   "></a></li>
+                                                <li><a><img alt="img" src="images/users/7.jpg"
+                                                            class="img-circle   "></a></li>
+                                                <li><a><img alt="img" src="images/users/8.jpg"
+                                                            class="img-circle   "></a></li>
+                                                <li><a><img alt="img" src="images/users/9.jpg"
+                                                            class="img-circle   "></a></li>
+                                                <li><a><img alt="img" src="images/users/10.jpg"
+                                                            class="img-circle   "></a></li>
+                                                <li><a><img alt="img" src="images/users/11.jpg"
+                                                            class="img-circle   "></a></li>
+                                                <li><a><img alt="img" src="images/users/12.jpg"
+                                                            class="img-circle   "></a></li>
+
+                                                <li><a><img alt="img" src="images/users/13.jpg"
+                                                            class="img-circle   "></a></li>
+                                                <li><a><img alt="img" src="images/users/14.jpg"
+                                                            class="img-circle   "></a></li>
+                                                <li><a><img alt="img" src="images/users/15.jpg"
+                                                            class="img-circle   "></a></li>
+                                                <li><a><img alt="img" src="images/users/16.jpg"
+                                                            class="img-circle   "></a></li>
+                                                <li><a><img alt="img" src="images/users/5.jpg"
+                                                            class="img-circle   "></a></li>
+                                                <li><a><img alt="img" src="images/users/6.jpg"
+                                                            class="img-circle   "></a></li>
+                                                <li><a><img alt="img" src="images/users/7.jpg"
+                                                            class="img-circle   "></a></li>
+                                                <li><a><img alt="img" src="images/users/8.jpg"
+                                                            class="img-circle   "></a></li>
+                                                <li><a><img alt="img" src="images/users/9.jpg"
+                                                            class="img-circle   "></a></li>
+                                                <li><a><img alt="img" src="images/users/10.jpg"
+                                                            class="img-circle   "></a></li>
+                                                <li><a><img alt="img" src="images/users/11.jpg"
+                                                            class="img-circle   "></a></li>
+                                                <li><a><img alt="img" src="images/users/12.jpg"
+                                                            class="img-circle   "></a></li>
+                                            </ul>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel sidebar-panel">
+                                    <div class="panel-heading">Safety Tips for Buyers</div>
+                                    <div class="panel-content">
+                                        <div class="panel-body text-left">
+                                            <ul class="list-check">
+                                                <li> Meet seller at a public place</li>
+                                                <li> Check the item before you buy</li>
+                                                <li> Pay only after collecting the item</li>
+                                            </ul>
+                                            <p><a class="pull-right" href="#"> Know more <i
+                                                    class="fa fa-angle-double-right"></i> </a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/.categories-list-->
+                            </aside>
+                        </div>
+                        <!--/.page-side-bar-->
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+   
+
+  
+{% endblock pageDefaultContent %}  

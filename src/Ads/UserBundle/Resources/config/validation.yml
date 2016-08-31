@@ -1,0 +1,6 @@
+Ads\UserBundle\Entity\Users:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+    properties:
+        email:
+            - Email: ~

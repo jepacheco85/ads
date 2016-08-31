@@ -1,0 +1,85 @@
+<div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a href="#collapseB2" data-toggle="collapse"> Address </a>
+                                    </h4>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseB2">
+                                    
+                            <div class="table-responsive">
+                            
+                            <table id="addManageTable"
+                                   class="table table-striped table-bordered add-manage-table table demo"
+                                   data-filter="#filter" data-filter-text-only="true">
+                                {% if app.user.addresses is empty %} 
+                                 <thead>
+                                    <tr>
+                                        <th class="alert alert-info"> Usted puede adicionar sus direcciones de contacto.</th>                                    
+                                    </tr>
+                                 </thead>
+                                 {% else %}
+                                    
+                                <thead>
+                                <tr>
+                                    <th> Locality</th>
+                                    <th> Address</th>
+                                    <th> Option</th>
+                                </tr>
+                                </thead>
+                                {% endif %}
+                                <tbody>
+                                    
+                                {% for address in app.user.addresses %}    
+                                
+                                <tr>  
+                                    
+                                    <td style="width:8%" class="price-td">
+                                        <div><strong> {{ address.locality}}</strong></div>
+                                    </td>
+                                    <td style="width:20%" class="price-td">
+                                        <div><strong> {{ address.address}}</strong></div>
+                                    </td>
+                                    <td style="width:10%" class="action-td">
+                                        <div>
+                                            <p><a href="{{ path('user_profile_del_address', {'id': address.id}) }}" class="btn btn-danger btn-xs"> Delete
+                                            </a></p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                   
+                                 
+                                </tbody>
+                            </table>
+                        </div>   
+                                    
+                                    <div class="panel-body">
+                                      {{ form_start(form, {'action': path('user_profile_edit_address'), 'method': 'POST'}) }}     
+                                      {#<form action="{{ path('user_profile_edit_address') }}" method="POST" class="form-horizontal" role="form">   #}  
+                                      
+                                           <div class="form-group">
+                                               <label class="col-sm-3 control-label">Locality</label>
+
+                                                <div class="col-sm-9">
+                                                 {{ form_widget(form.locality) }}
+                                                </div>
+                                           </div>        
+                                            
+                                            
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Address</label>
+
+                                                <div class="col-sm-9">
+                                                    {{ form_widget(form.address) }}
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-offset-3 col-sm-9">
+                                                    <button type="submit" class="btn btn-default">Add</button>
+                                                </div>
+                                            </div>
+                                                
+                                        {{ form_rest(form) }}
+                                     {{ form_end(form) }}
+                                    </div>
+                                </div>
+</div>    

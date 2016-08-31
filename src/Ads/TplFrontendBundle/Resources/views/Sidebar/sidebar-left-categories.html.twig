@@ -1,0 +1,9 @@
+<div class="categories-list  list-filter">
+    <h5 class="list-title"><strong><a href="#">All Categories</a></strong></h5>
+        <ul class=" list-unstyled">
+            {% for category in categories %}
+                <li><a href="{{ path('announces_list', {'subcategory': category.slug }) }}"><span class="title">{{ category.name }}</span><span class="count">({{ category.cant }})</span></a></li> 
+            {% endfor %}  
+        </ul>
+</div>
+ 

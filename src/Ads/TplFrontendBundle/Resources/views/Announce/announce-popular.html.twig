@@ -1,0 +1,9 @@
+ <div class="inner-box relative">
+    <div class="row">
+       {# Incluir en la pagina el template del topbar #}
+       {% render(controller('AnnounceBundle:Location:locationsPopular')) %} 
+
+       {# Incluir en la pagina el template del topbar #}
+       {% include 'TplFrontendBundle:Announce:announce-popular-make.html.twig' %}                            
+    </div>
+</div>

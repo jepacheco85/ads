@@ -1,0 +1,43 @@
+{% extends 'TplFrontendBundle::base.html.twig' %}
+
+{% block stylesheets %}
+  {{ parent() }} 
+  
+{% endblock stylesheets %}
+
+{% block body %}
+  {{ parent() }} 
+
+<div id="wrapper">  
+    {# Incluir en la pagina el template del topbar #}
+    {% include 'TplFrontendBundle:Partial:topbar.html.twig' %}
+     
+
+      
+        {% block pageDefaultContent %}            
+            
+
+        {% endblock pageDefaultContent %}
+       
+         
+ 
+    {# Incluir el Footer #}
+    {% include 'TplFrontendBundle:Partial:footer.html.twig' %}
+
+ </div>
+   <!-- /.wrapper -->    
+{% endblock body %}
+
+{% block javascripts %}
+  {{ parent() }}
+  
+  <!-- Le javascript
+================================================== -->
+
+<script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+
+
+{% endblock javascripts %}
+
+  
+

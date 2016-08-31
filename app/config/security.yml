@@ -1,0 +1,48 @@
+security:
+  firewalls:
+    backend_area:
+      pattern: ^/admin
+      anonymous: ~
+      provider: administrators
+      form_login:
+        login_path: admin_login
+        check_path: admin_login_check
+        default_target_path: admin_index
+        always_use_default_target_path: true
+      logout:
+        path: admin_logout
+        target: admin_login
+      remember_me:
+        key: ads_backend
+        lifetime: 86400
+    frontend_area:
+      pattern: ^/
+      anonymous: ~
+      provider: users
+      form_login:
+        login_path: user_login
+        check_path: user_login
+        default_target_path: index
+        always_use_default_target_path: true
+      logout:
+        path: logout
+        target: index
+      remember_me:
+        key: ads_frontend
+        lifetime: 86400 
+
+  access_control:
+    - { path: ^/admin/index, roles: IS_AUTHENTICATED_ANONYMOUSLY }  
+    - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/admin, roles: ROLE_ADMIN }
+    - { path: ^/account, roles: ROLE_USER }
+
+  providers:
+    administrators:
+        entity: { class: Ads\UserBundle\Entity\Admin, property: email }
+    users:
+        entity: { class: Ads\UserBundle\Entity\Users, property: email }
+      
+  encoders:
+    Ads\UserBundle\Entity\Admin: { algorithm: sha512, iterations: 10 }
+    Ads\UserBundle\Entity\Users: { algorithm: sha512, iterations: 10 }

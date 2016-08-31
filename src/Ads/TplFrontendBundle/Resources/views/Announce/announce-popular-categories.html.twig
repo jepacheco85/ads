@@ -1,0 +1,23 @@
+<div class="col-sm-3 page-sidebar col-thin-left">
+    <aside>
+        <div class="inner-box no-padding">
+            <div class="inner-box-content"><a href="#"><img class="img-responsive"
+                src="{{ asset('assets/images/site/app.jpg')}}" alt="tv"></a>
+            </div>
+        </div>   
+        <div class="inner-box">
+            <h2 class="title-2">Popular Categories </h2>
+            {% if(subcategories) %}
+                <div class="inner-box-content">
+                    <ul class="cat-list arrow">
+                        {% for subcategory in subcategories %}
+                          <li><a href="{{ path('announces_list', {'subcategory': subcategory.slug }) }}"> {{ subcategory.name }} ({{ subcategory.cant }}) </a></li>             
+                        {% endfor %}
+                    </ul>
+                </div>
+           {% endif %}
+        </div>
+    </aside>
+</div>
+                
+         

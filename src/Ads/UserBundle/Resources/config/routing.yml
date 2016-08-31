@@ -1,0 +1,54 @@
+index:
+    pattern:    /index/
+    defaults: { _controller: UserBundle:Default:index }
+
+user_homepage:
+    path:     /
+    defaults: { _controller: UserBundle:Default:index }
+    
+user_login:  
+    path:     /login
+    defaults: { _controller: UserBundle:Default:loginUser }  
+
+user_login_check:
+    pattern:    /login_check
+    
+user_logout:
+    pattern:    /logout
+    
+user_sigup:  
+    path:     /signup
+    defaults: { _controller: UserBundle:Default:signup }   
+    
+user_profileaaa:  
+    path:     /profile
+    defaults: { _controller: UserBundle:Default:profile } 
+    
+user_profile_params:  
+    path:     /profile/{u}
+    defaults: { _controller: UserBundle:Default:profileByUser } 
+    
+user_announces:  
+    path:     /user-announces
+    defaults: { _controller: UserBundle:Default:userAnnounce } 
+    
+user_profile:  
+    path:     /user-profile
+    defaults: { _controller: UserBundle:Crud:userProfile }
+    
+user_profile_edit_details:  
+    path:     /user-profile-edit-details
+    defaults: { _controller: UserBundle:Crud:userEditDetails } 
+    
+user_profile_edit_pass:  
+    path:     /user-profile-edit-pass
+    defaults: { _controller: UserBundle:Crud:userEditPass }  
+    
+user_profile_edit_address:  
+    path:     /user-profile-edit-address
+    defaults: { _controller: UserBundle:Crud:userEditAddress } 
+    
+user_profile_del_address:  
+    path:     /user-profile-del-address/{id}
+    defaults: { _controller: UserBundle:Crud:userDelAddress }
+      

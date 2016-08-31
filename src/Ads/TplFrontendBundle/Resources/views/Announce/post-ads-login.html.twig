@@ -1,0 +1,138 @@
+<div class="row">
+    <div class="col-sm-12">
+    <form action="{{ path('announce_post_ads') }}" method="post" class="form-horizontal" {{ form_enctype(form) }}>    
+    {# form_start(form, {'action': path('announce_post_ads'), 'method': 'POST', 'class': 'form-horizontal', 'class': 'form-horizontal'}) #}   
+     <fieldset>
+            <div class="form-group">
+            {{ form_errors(form) }}
+            </div>
+            <!-- Select Basic -->
+            <div class="form-group">
+                <label class="col-md-3 control-label">Category</label>
+
+                    <div class="col-md-8">
+                        <select class="form-control selecter" name="category" id="search-category">
+                            <option selected="selected" value="-1">Seleccione...</option>
+                                {% for category in categories %}
+                            <option name="category" value="{{ category.categoryId }}" style="background-color:#E9E9E9;font-weight:bold;" disabled="disabled">
+                                {{ category.name }}
+                            </option>
+                                {% if subcategories %}
+                                    {% for subcategory in subcategories %}
+                                        {% if subcategory.category == category.name %}
+                            <option value="{{ subcategory.subcategoryId }}"> {{ subcategory.name }} </option>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}  
+                                {% endfor %}
+                        </select>   
+                    </div>
+            </div>
+                        
+                                        <!-- Select Basic -->
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Locality</label>
+
+                                            <div class="col-md-8">
+                                                <select class="form-control selecter" name="locality" id="search-category">
+                                                 <option selected="selected" value="">Seleccione...</option>
+                                                    {% for state in states %}
+                                                    <option name="state" value="{{ state.Id }}" style="background-color:#E9E9E9;font-weight:bold;" disabled="disabled">
+                                                        {{ state.name }}
+                                                    </option>
+                                                    {% if localities %}
+                                                        {% for locality in localities %}
+                                                           {% if locality.state.name == state.name %}
+                                                              <option value="{{ locality.Id }}"> {{ locality.name }} </option>
+                                                           {% endif %}
+                                                        {% endfor %}
+                                                    {% endif %}  
+                                                    {% endfor %}
+                                                </select>   
+                                            </div>
+                                        </div>               
+
+                                        <!-- Multiple Radios (inline) -->
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Add Type</label>
+
+                                            <div class="col-md-8">
+                                                <div class="radio">
+                                                    {{ form_widget(form.type) }}                                               
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Text input-->
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="Adtitle">Ad title</label>
+
+                                            <div class="col-md-8">
+                                                {{ form_widget(form.title, {'attr':{'class': 'form-control input-md', 'placeholder': 'Title' }} ) }}
+                                                <span class="help-block">A great title needs at least 60 characters. </span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Textarea -->
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="textarea">Describe ad </label>
+
+                                            <div class="col-md-8">
+                                                {{ form_widget(form.description, {'attr':{'id': 'textarea', 'class': 'form-control', 'placeholder': 'Description' }} ) }}
+                                            </div>
+                                        </div>
+
+                                       <!-- Prepended text-->
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="Price">Price</label>
+
+                                            <div class="col-md-4">
+                                                <div class="input-group"><span class="input-group-addon">$</span>
+                                                    {{ form_widget(form.price, {'attr':{'id': 'Price', 'class': 'form-control', 'placeholder': 'Price' }} ) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        {{ form_widget(form.negotiable) }} 
+                                                        Negotiable </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+    <!-- photo -->
+    <div class="form-group">
+        <label class="col-md-3 control-label" for="textarea"> Picture </label>
+        
+         <div class="col-md-8">
+                <div class="mb10">
+                    <input type="file" id="ads_announcebundle_announcetype_imagenes_0"  name="ads_announcebundle_announcetype[imagenes][0]" class="file" data-preview-file-type="text"/>                   
+                 </div>   
+                <div class="mb10">
+                    <input type="file" id="ads_announcebundle_announcetype_imagenes_1" name="ads_announcebundle_announcetype[imagenes][1]" class="file" data-preview-file-type="text"/>                    
+                 </div> 
+                <div class="mb10">
+                    <input type="file" id="ads_announcebundle_announcetype_imagenes_2"  name="ads_announcebundle_announcetype[imagenes][2]" class="file" data-preview-file-type="text"/>                    
+                 </div> 
+                <p class="help-block">Add up to 3 photos. Use a real image of your product, not catalogs.</p>
+            </div>
+    </div>
+            
+                    
+       
+                                        <!-- Button  -->
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label"></label>
+
+                                            <div class="col-md-8">
+                                                <input name="Button" type="submit" class="btn btn-success btn-lg" value="Post" /></div>                     
+                                        </div>
+                                    </fieldset>
+                                  </form>
+                                   {#{{ form_rest(form) }}
+                                 {{ form_end(form) }}
+                                {{ form_end(form, {'render_rest': false}) }} #}
+                            </div>
+                        </div>
+     
