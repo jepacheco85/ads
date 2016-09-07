@@ -8,40 +8,39 @@
                     <a href="{{ path('tpl_frontend_homepage')}}" class="navbar-brand logo logo-title">
                         <!-- Original Logo will be placed here  -->
                         <span class="logo-icon"><i class="icon icon-search-1 ln-shadow-logo shape-0"></i> </span>
-                        BOOT<span>CLASSIFIED </span> </a></div>
+                        DESCLASIFICADOS<span>.COM</span> </a></div>
                 <div class="navbar-collapse collapse">
                 
                 {% if is_granted('ROLE_USER') %}
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Signout <i class="glyphicon glyphicon-off"></i> </a></li>
+                        <li><a href="{{ path('user_logout') }}">Salir<i class="glyphicon glyphicon-off"></i> </a></li>
                         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <span>{{ app.user.name }} {{ app.user.lastname }}</span> <i class="icon-user fa"></i> <i
                                 class=" icon-down-open-big fa"></i></a>
                             <ul class="dropdown-menu user-menu">
-                                <li class="active"><a href="{{ path('user_profile') }}"><i class="icon-home"></i> Personal Home
+                                <li class="active"><a href="{{ path('user_profile') }}"><i class="icon-home"></i> Información Personal
                                 </a></li>
 
-                                <li><a href="{{ path('user_announces') }}"><i class="icon-th-thumb"></i> My ads </a></li>
-                                <li><a href="account-favourite-ads.html"><i class="icon-heart"></i> Favourite ads </a>
+                                <li><a href="{{ path('user_announces') }}"><i class="icon-th-thumb"></i> Mis Clasificados </a></li>
+                                {#<li><a href="account-favourite-ads.html"><i class="icon-heart"></i> Clasificados Favoritos </a>
                                 </li>
-                                <li><a href="account-saved-search.html"><i class="icon-star-circled"></i> Saved search
+                                <li><a href="account-saved-search.html"><i class="icon-star-circled"></i> Clasificados Salvados
                                 </a></li>
-                                <li><a href="account-archived-ads.html"><i class="icon-folder-close"></i> Archived ads
+                                <li><a href="account-archived-ads.html"><i class="icon-folder-close"></i> Clasificados Archivados
                                 </a></li>
-                                <li><a href="account-pending-approval-ads.html"><i class="icon-hourglass"></i> Pending
-                                    approval </a></li>
-                                <li><a href="statements.html"><i class=" icon-money "></i> Payment history </a></li>
+                                <li><a href="account-pending-approval-ads.html"><i class="icon-hourglass"></i> Pendiente de Aprobación </a></li>
+                                <li><a href="statements.html"><i class=" icon-money "></i> Payment history </a></li>#}
                             </ul>
                         </li>
                         <li class="postadd"><a class="btn btn-block   btn-border btn-post btn-danger"
-                                               href="{{ path('announce_post_ads') }}">Post Free Add</a></li>
+                                               href="{{ path('announce_post_ads') }}">Publica Gratis</a></li>
                     </ul>
                     {% else %}
                       <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{{ path('user_login') }}">Login</a></li>
-                        <li><a href="{{ path('user_sigup') }}">Signup</a></li>
-                        <li class="postadd"><a class="btn btn-block btn-border btn-post btn-danger" href="{{ path('announce_post_ads') }}">Post Free Add</a></li>
+                        <li><a href="{{ path('user_login') }}">Entrar</a></li>
+                        <li><a href="{{ path('user_sigup') }}">Registrarse</a></li>
+                        <li class="postadd"><a class="btn btn-block btn-border btn-post btn-danger" href="{{ path('announce_post_ads') }}">Publica Gratis</a></li>
                     </ul>                  
                     {% endif %}
                 </div>

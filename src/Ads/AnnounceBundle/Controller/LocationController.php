@@ -13,7 +13,7 @@ class LocationController extends Controller
     {
         $em = $this->get('doctrine')->getManager();
         
-        $localities = $em->getRepository('AddressBundle:Locality')->findAll();
+        $localities = $em->getRepository('AddressBundle:City')->findAll();
       
      foreach ($localities as $locality){         
           $sub = $em->getRepository('AnnounceBundle:Announce')->getPopularLocation($locality->getId());
@@ -59,7 +59,7 @@ class LocationController extends Controller
     {
         $em = $this->get('doctrine')->getManager();
         
-        $locations = $em->getRepository('AddressBundle:Locality')->findAll();
+        $locations = $em->getRepository('AddressBundle:City')->findAll();
       
      foreach ($locations as $locality){         
           $sub = $em->getRepository('AnnounceBundle:Announce')->getPopularLocation($locality->getId());

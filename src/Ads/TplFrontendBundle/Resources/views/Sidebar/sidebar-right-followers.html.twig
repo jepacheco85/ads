@@ -1,59 +1,37 @@
-                <div class="col-sm-3 page-sidebar mobile-filter-sidebar">
-                    <aside>
-                        <div class="inner-box">
-                            {# Incluir en la pagina el template del topbar #}
-                            {% render(controller('AnnounceBundle:Category:categoriesPopularSideBar')) %}                             
-                            <!--/.categories-list-->
-
-                            {# Incluir en la pagina el template del topbar #}
-                            {% render(controller('AnnounceBundle:Location:locationsPopularSideBar')) %}                           
-                            <!--/.locations-list-->
-
-                            <div class="locations-list  list-filter">
-                                <h5 class="list-title"><strong><a href="#">Price range</a></strong></h5>
-
-                                <form role="form" class="form-inline ">
-                                    <div class="form-group col-sm-4 no-padding">
-                                        <input type="text" placeholder="$ 2000 " id="minPrice" class="form-control">
+                        <div class="col-sm-3  page-sidebar-right">
+                            <aside>                                
+                                <div class="panel sidebar-panel panel-contact-seller">
+                                    <div class="panel-heading">Seguidores <span class="badge">{{ followers|length }}</span>
                                     </div>
-                                    <div class="form-group col-sm-1 no-padding text-center hidden-xs"> -</div>
-                                    <div class="form-group col-sm-4 no-padding">
-                                        <input type="text" placeholder="$ 3000 " id="maxPrice" class="form-control">
+                                    <div class="panel-content user-info">
+                                        <div class="panel-body text-center">
+                                            <ul class="list-unstyled list-user-list long-list-user">
+                                               {% for myfollow in followers %}
+                                                   {% if myfollow.avatar == null %}
+                                                     <li><a><img alt="{{ myfollow.name }}" src="{{ asset('assets/images/user.jpg') }}" class="img-circle"></a></li>
+                                                   {% else %}
+                                                     <li><a><img alt="{{ myfollow.name }}" src="{{ asset('bundles/uploads/users/') }}{{ myfollow.avatar }}" class="img-circle"></a></li> 
+                                                   {% endif %}   
+                                               {% endfor %}
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <div class="form-group col-sm-3 no-padding">
-                                        <button class="btn btn-default pull-right btn-block-xs" type="submit">GO
-                                        </button>
+                                </div>
+                                <div class="panel sidebar-panel">
+                                    <div class="panel-heading">Safety Tips for Buyers</div>
+                                    <div class="panel-content">
+                                        <div class="panel-body text-left">
+                                            <ul class="list-check">
+                                                <li> Meet seller at a public place</li>
+                                                <li> Check the item before you buy</li>
+                                                <li> Pay only after collecting the item</li>
+                                            </ul>
+                                            <p><a class="pull-right" href="#"> Know more <i
+                                                    class="fa fa-angle-double-right"></i> </a></p>
+                                        </div>
                                     </div>
-                                </form>
-                                <div style="clear:both"></div>
-                            </div>
-                            <!--/.list-filter-->
-                            <div class="locations-list  list-filter">
-                                <h5 class="list-title"><strong><a href="#">Seller</a></strong></h5>
-                                <ul class="browse-list list-unstyled long-list">
-                                    <li><a href="sub-category-sub-location.html"><strong>All Ads</strong> <span
-                                            class="count">228,705</span></a></li>
-                                    <li><a href="sub-category-sub-location.html">Business <span
-                                            class="count">28,705</span></a></li>
-                                    <li><a href="sub-category-sub-location.html">Personal <span
-                                            class="count">18,705</span></a></li>
-                                </ul>
-                            </div>
-                            <!--/.list-filter-->
-                            <div class="locations-list  list-filter">
-                                <h5 class="list-title"><strong><a href="#">Condition</a></strong></h5>
-                                <ul class="browse-list list-unstyled long-list">
-                                    <li><a href="sub-category-sub-location.html">New <span class="count">228,705</span></a>
-                                    </li>
-                                    <li><a href="sub-category-sub-location.html">Used <span class="count">28,705</span></a>
-                                    </li>
-                                    <li><a href="sub-category-sub-location.html">None </a></li>
-                                </ul>
-                            </div>
-                            <!--/.list-filter-->
-                            <div style="clear:both"></div>
+                                </div>
+                                <!--/.categories-list-->
+                            </aside>
                         </div>
-
-                        <!--/.categories-list-->
-                    </aside>
-                </div>
+                        <!--/.page-side-bar-->

@@ -6,18 +6,18 @@
  * Time: 12:33 AM
  */
 
-namespace Ads\AnnounceBundle\Repository;
+namespace Ads\UserBundle\Repository;
 
 
 use Doctrine\ORM\EntityRepository;
 
-class AnnounceRepository extends EntityRepository{
+class UserRepository extends EntityRepository{
     
-    public function getPopularSubCategory($subcategory)
-    {   
-        $em = $this->getEntityManager();        
+  public function getMyFollowing($userId)
+  {
+    $em = $this->getEntityManager();        
         
-        return $sub = $em->createQueryBuilder()
+        /*return $follow = $em->createQueryBuilder()
         ->select('a')                
         ->addSelect('COUNT(s) num')
         ->from('AnnounceBundle:Announce', 'a')
@@ -26,110 +26,35 @@ class AnnounceRepository extends EntityRepository{
         ->setParameter('subcategory', $subcategory)
         ->groupBy('a.announceId')
         ->getQuery()                
-        ->getResult();        
-    } 
+        ->getOneOrNullResult();*/
     
-    public function getPopularLocation($locality)
-    {   
-        $em = $this->getEntityManager();        
-        
-        return $sub = $em->createQueryBuilder()
-        ->select('a')                
-        ->addSelect('COUNT(l) num')
-        ->from('AnnounceBundle:Announce', 'a')
-        ->leftJoin('a.locality', 'l')
-        ->where('a.locality = :locality')
-        ->setParameter('locality', $locality)
-        ->groupBy('a.announceId')
+    return $follow = $em->createQueryBuilder()
+        ->select('u, f')  
+        //->addSelect('COUNT(f) num')    
+        ->from('UserBundle:Users', 'u')
+        ->leftJoin('u.followWithMe', 'f')
+        ->where('f.userId = :user')
+        ->setParameter('user', $userId)
+        //->groupBy('a.announceId')
         ->getQuery()                
-        ->getResult();        
-    } 
+        ->getResult();
+        
+  }  
     
-    public function getFeatured()
-    {               
-        $em = $this->getEntityManager();
+  public function getMyFollowers($userId)
+  {
+    $em = $this->getEntityManager();
+       
+    return $follow = $em->createQueryBuilder()
+        ->select('u, f')  
+        //->addSelect('COUNT(f) num')    
+        ->from('UserBundle:Users', 'u')
+        ->leftJoin('u.myFollow', 'f')
+        ->where('f.userId = :user')
+        ->setParameter('user', $userId)
+        //->groupBy('a.announceId')
+        ->getQuery()                
+        ->getResult();
         
-        $query = $em->createQuery('
-            SELECT a 
-            FROM AnnounceBundle:Announce a 
-            WHERE a.post < :fecha AND a.path IS NOT NULL
-            ORDER BY a.post DESC
-        ');
-        $query->setParameter('fecha', new \DateTime('now'));
-        $query->setMaxResults(10);
-        return $query->getResult();
-    }
-    
-    /**
-   * Devuelve una lista de anuncio hecha por el usuario
-   *
-   */
-    public function getAnnouncesByUser($user)
-    {
-       $em = $this->getEntityManager();
-        
-        $query = $em->createQuery('
-            SELECT a 
-            FROM AnnounceBundle:Announce a JOIN a.user u 
-            WHERE a.user = :user
-            ORDER BY a.post ASC
-        ');
-        $query->setParameter('user', $user);
-        return $query->getResult();
-    }
-
-   /**
-   * Devuelve una lista de anuncio por subcategoria y localidad
-   *
-   */
-    public function getCategoryLocality($subcategory, $locality)
-    {               
-        $em = $this->getEntityManager();
-        
-        $query = $em->createQuery('
-            SELECT a 
-            FROM AnnounceBundle:Announce a
-            WHERE a.subcategory = :subcategory AND a.locality = :locality 
-        ');
-        $query->setParameter('subcategory', $subcategory);
-        $query->setParameter('locality', $locality);
-        $query->setMaxResults(10);
-        return $query->getResult();
-    }
-    
-   /**
-   * Devuelve una lista de las 8 promociones que menos tiempo quedan para que terminen
-   *
-   */
-    public function getBusinessByFinalDeals($category, $cant = 8)
-    {               
-        $em = $this->getEntityManager();
-        
-        $query = $em->createQuery('
-            SELECT b 
-            FROM VivimBusinessBundle:UserBusiness b JOIN b.business_categories c 
-            WHERE c.category = :category AND b.updated > :fecha
-            ORDER BY b.updated DESC
-        ');
-        $query->setParameter('category', $category);
-        $query->setParameter('fecha', new \DateTime('now'));
-        $query->setMaxResults($cant);
-        return $query->getResult();
-    }
-    
-    public function getPopularActivityToday($category, $cant = 5)
-    {               
-        $em = $this->getEntityManager();
-        
-        $query = $em->createQuery('
-            SELECT b 
-            FROM VivimBusinessBundle:UserBusiness b JOIN b.business_categories c 
-            WHERE c.category = :category AND b.updated > :fecha
-            ORDER BY b.updated DESC
-        ');
-        $query->setParameter('category', $category);
-        $query->setParameter('fecha', new \DateTime('now'));
-        $query->setMaxResults($cant);
-        return $query->getResult();
-    }
+  }
 } 

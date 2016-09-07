@@ -16,13 +16,17 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AppBundle\AppBundle(),
+            
+            //BUNDLES DE LA APP
             new Ads\TplFrontendBundle\TplFrontendBundle(),
             new Ads\BackendBundle\BackendBundle(),
             new Ads\UserBundle\UserBundle(),
             new Ads\AnnounceBundle\AnnounceBundle(),
             new Ads\AddressBundle\AddressBundle(),
             
+            //BUNDLES DE TERCEROS
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

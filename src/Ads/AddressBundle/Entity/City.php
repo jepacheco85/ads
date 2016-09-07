@@ -9,141 +9,128 @@
 namespace Ads\AddressBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+
 /**
+ * Ads\AddressBundle\Entity\City
  * 
- * @package Ads\AddressBundle\Entity
- * @ORM\Table(name="locality")
- * @ORM\Entity(repositoryClass="Ads\AnnounceBundle\Repository\AnnounceLocationRepository")
+ * @ORM\Table(name="city")
+ * @ORM\Entity(repositoryClass="Ads\AddressBundle\Repository\CityRepository")
  */
-class Locality {
+class City
+{
     /**
-     * @var integer
+     * @var integer $id
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
-
+    protected $id;
     /**
-     * @var string
+     * @var string $name
      *
-     * @ORM\Column(name="name", type="string", length=100)
+     * @ORM\Column(name="name", type="string", length=255)
      */
-    private $name;
+    protected $name;
     /**
-     * @var string
+     * @var string $slug
      *
-     * @ORM\Column(name="slug", type="string", length=100)
+     * @ORM\Column(name="slug", type="string", length=255, unique=true)
      */
-    private $slug;
-
+    protected $slug;
     /**
-     * @var string
-     *
-     * @ORM\Column(name="postal_code", type="string", length=100)
+     * @ORM\ManyToOne(targetEntity="Ads\AddressBundle\Entity\Province", inversedBy="cities")
+     * @ORM\JoinColumn(name="province_id", referencedColumnName="id")
      */
-    private $postalCode;    
-
-    /**
-     * @var \Ads\AddressBundle\Entity\State
-     * @ORM\ManyToOne(targetEntity="Ads\AddressBundle\Entity\State")
-     * @ORM\JoinColumn(name="state_id", referencedColumnName="id")
-     */
-    private $state;
-
-    /**
-     * @var \Ads\AddressBundle\Entity\Address
-     * @ORM\OneToMany(targetEntity="Ads\AddressBundle\Entity\Address", mappedBy="locality")
-     */
-    private $addresses;
+    protected $province;
     
     /**
      * @var \Ads\AnnounceBundle\Entity\Announce
-     * @ORM\OneToMany(targetEntity="Ads\AnnounceBundle\Entity\Announce", mappedBy="locality")
+     * @ORM\OneToMany(targetEntity="Ads\AnnounceBundle\Entity\Announce", mappedBy="cities")
      */
-    private $announces;
+    protected $announces;
     
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
         $this->announces = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
-
     /**
      * Set name
      *
-     * @param string $name
-     * @return Locality
+     * @param  string $name
+     * @return City
      */
     public function setName($name)
     {
         $this->name = $name;
-    
         return $this;
     }
-
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
         return $this->name;
     }
-
     /**
-     * Add addresses
+     * Set slug
      *
-     * @param \Ads\AddressBundle\Entity\Address $addresses
-     * @return Locality
+     * @param  string $slug
+     * @return City
      */
-    public function addAddresse(\Ads\AddressBundle\Entity\Address $addresses)
+    public function setSlug($slug)
     {
-        $this->addresses[] = $addresses;
-    
+        $this->slug = $slug;
         return $this;
     }
-
     /**
-     * Remove addresses
+     * Get slug
      *
-     * @param \Ads\AddressBundle\Entity\Address $addresses
+     * @return string
      */
-    public function removeAddresse(\Ads\AddressBundle\Entity\Address $addresses)
+    public function getSlug()
     {
-        $this->addresses->removeElement($addresses);
+        return $this->slug;
     }
-
     /**
-     * Get addresses
+     * Set province
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @param  \Ads\AddressBundle\Entity\Province $province
+     * @return City
      */
-    public function getAddresses()
+    public function setProvince(\Ads\AddressBundle\Entity\Province $province = null)
     {
-        return $this->addresses;
+        $this->province = $province;
+        return $this;
     }
-    
+    /**
+     * Get province
+     *
+     * @return \Ads\AddressBundle\Entity\Province
+     */
+    public function getProvince()
+    {
+        return $this->province;
+    }
     /**
      * Add announces
      *
      * @param \Ads\AnnouncesBundle\Entity\Announces $announces
-     * @return Locality
+     * @return City
      */
     public function addAnnounce(\Ads\AnnounceBundle\Entity\Announce $announces)
     {
@@ -172,75 +159,6 @@ class Locality {
         return $this->announces;
     }
 
-    /**
-     * Set state
-     *
-     * @param \Ads\AddressBundle\Entity\State $state
-     * @return Locality
-     */
-    public function setState(\Ads\AddressBundle\Entity\State $state = null)
-    {
-        $this->state = $state;
-    
-        return $this;
-    }
-
-    /**
-     * Get state
-     *
-     * @return \Ads\AddressBundle\Entity\State 
-     */
-    public function getState()
-    {
-        return $this->state;
-    }
-
-    /**
-     * Set postalCode
-     *
-     * @param string $postalCode
-     * @return Locality
-     */
-    public function setPostalCode($postalCode)
-    {
-        $this->postalCode = $postalCode;
-    
-        return $this;
-    }
-
-    /**
-     * Get postalCode
-     *
-     * @return string 
-     */
-    public function getPostalCode()
-    {
-        return $this->postalCode;
-    }
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return Locality
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-    
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string 
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-    
     public function __toString()
     {
         return $this->name;

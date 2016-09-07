@@ -1,3 +1,11 @@
 address_homepage:
     path:     /
     defaults: { _controller: AddressBundle:Default:index }
+    
+select_provinces:
+    path: /provinces
+    defaults: { _controller: AddressBundle:Default:provinces } 
+    
+select_cities:
+    path: /cities
+    defaults: { _controller: AddressBundle:Default:cities } 

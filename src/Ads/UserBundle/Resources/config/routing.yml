@@ -51,4 +51,11 @@ user_profile_edit_address:
 user_profile_del_address:  
     path:     /user-profile-del-address/{id}
     defaults: { _controller: UserBundle:Crud:userDelAddress }
+    
+user_follow:  
+    path:     /user-follow/{id}
+    defaults: { _controller: UserBundle:Default:followUser }    
+    
+    
+    
       

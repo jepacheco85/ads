@@ -20,42 +20,36 @@ use Doctrine\ORM\Mapping as ORM;
 class Country
 {
     /**
-     * @var integer
+     * @var integer $id
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
-
+    protected $id;
     /**
-     * @var string
+     * @var string $name
      *
-     * @ORM\Column(name="name", type="string", length=100)
+     * @ORM\Column(name="name", type="string", length=255)
      */
-    private $name;
-
+    protected $name;
     /**
-     * @var string
+     * @var string $slug
      *
-     * @ORM\Column(name="slug", type="string", length=100)
+     * @ORM\Column(name="slug", type="string", length=255, unique=true)
      */
-    private $slug;
-
+    protected $slug;
     /**
-     * @var \Ads\AddressBundle\Entity\State
-     * @ORM\OneToMany(targetEntity="Ads\AddressBundle\Entity\State", mappedBy="country")
+     * @ORM\OneToMany(targetEntity="Ads\AddressBundle\Entity\Province", mappedBy="country")
      */
-    private $states;
-
+    protected $provinces;
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->states = new ArrayCollection();
+        $this->provinces = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
     /**
      * Get id
      *
@@ -65,21 +59,17 @@ class Country
     {
         return $this->id;
     }
-
     /**
      * Set name
      *
-     * @param string $name
-     *
+     * @param  string  $name
      * @return Country
      */
-    public function setName( $name )
+    public function setName($name)
     {
         $this->name = $name;
-
         return $this;
     }
-
     /**
      * Get name
      *
@@ -89,61 +79,57 @@ class Country
     {
         return $this->name;
     }
-
-    /**
-     * Add state
-     *
-     * @param \Ads\AddressBundle\Entity\State $state
-     *
-     * @return Country
-     */
-    public function addState( \Ads\AddressBundle\Entity\State $state )
-    {
-        $this->states[ ] = $state;
-
-        return $this;
-    }
-
-    /**
-     * Remove states
-     *
-     * @param \Ads\AddressBundle\Entity\State $state
-     */
-    public function removeState( \Ads\AddressBundle\Entity\State $state )
-    {
-        $this->states->removeElement( $state );
-    }
-
-    /**
-     * Get states
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getStates()
-    {
-        return $this->states;
-    }
-
     /**
      * Set slug
      *
-     * @param string $slug
+     * @param  string  $slug
      * @return Country
      */
     public function setSlug($slug)
     {
         $this->slug = $slug;
-    
         return $this;
     }
-
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
         return $this->slug;
+    }
+    /**
+     * Add provinces
+     *
+     * @param  \Ads\AddressBundle\Entity\Province $provinces
+     * @return Country
+     */
+    public function addProvince(\Ads\AddressBundle\Entity\Province $provinces)
+    {
+        $this->provinces[] = $provinces;
+        return $this;
+    }
+    /**
+     * Remove provinces
+     *
+     * @param \Ads\AddressBundle\Entity\Province $provinces
+     */
+    public function removeProvince(\Ads\AddressBundle\Entity\Province $provinces)
+    {
+        $this->provinces->removeElement($provinces);
+    }
+    /**
+     * Get provinces
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProvinces()
+    {
+        return $this->provinces;
+    }
+    public function __toString()
+    {
+        return $this->name;
     }
 }

@@ -22,8 +22,8 @@ class AnnounceLocationRepository extends EntityRepository{
     {               
         return $this->createQueryBuilder('q')
             ->leftJoin('q.announces','a')
-            ->leftJoin('q.locality','l')
-            ->andWhere('a.localityId = :locality')
+            ->leftJoin('q.city','l')
+            ->andWhere('a.cityId = :locality')
             ->setParameter('locality', $location)
             ->select('COUNT(q.announceId) as cant')
             ->getQuery()

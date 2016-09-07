@@ -1,6 +1,6 @@
 <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h4 class="panel-title"><a href="#collapseB2" data-toggle="collapse"> Address </a>
+                                    <h4 class="panel-title"><a href="#collapseB2" data-toggle="collapse"> Direcciones </a>
                                     </h4>
                                 </div>
                                 <div class="panel-collapse collapse" id="collapseB2">
@@ -53,33 +53,43 @@
                         </div>   
                                     
                                     <div class="panel-body">
-                                      {{ form_start(form, {'action': path('user_profile_edit_address'), 'method': 'POST'}) }}     
-                                      {#<form action="{{ path('user_profile_edit_address') }}" method="POST" class="form-horizontal" role="form">   #}  
-                                      
-                                           <div class="form-group">
-                                               <label class="col-sm-3 control-label">Locality</label>
-
-                                                <div class="col-sm-9">
-                                                 {{ form_widget(form.locality) }}
-                                                </div>
-                                           </div>        
-                                            
+                                        <form action="{{ path('user_profile_edit_address') }}" method="POST" novalidate role="form">
                                             
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label">Address</label>
+                                               <label class="col-sm-3 control-label">Direccion</label>
 
                                                 <div class="col-sm-9">
-                                                    {{ form_widget(form.address) }}
+                                                 {{ form_row(form.address) }}
                                                 </div>
-                                            </div>
+                                           </div> 
+                                                
+                                            <div class="form-group">
+                                               <label class="col-sm-3 control-label">Pais</label>
+
+                                                <div class="col-sm-9">
+                                                 {{ form_row(form.country) }}
+                                                </div>
+                                           </div> 
+                                                <div class="form-group">
+                                               <label class="col-sm-3 control-label">Pronvincia</label>
+
+                                                <div class="col-sm-9">
+                                                 {{ form_row(form.state) }}
+                                                </div>
+                                           </div> 
+                                                <div class="form-group">
+                                               <label class="col-sm-3 control-label">Localidad</label>
+
+                                                <div class="col-sm-9">
+                                                 {{ form_row(form.locality) }}
+                                                </div>
+                                           </div> {{ form_rest(form) }}
                                             <div class="form-group">
                                                 <div class="col-sm-offset-3 col-sm-9">
-                                                    <button type="submit" class="btn btn-default">Add</button>
+                                                    <button type="submit" class="btn btn-default">Agregar</button>
                                                 </div>
                                             </div>
-                                                
-                                        {{ form_rest(form) }}
-                                     {{ form_end(form) }}
+                                        </form> 
                                     </div>
                                 </div>
 </div>    

@@ -2,7 +2,7 @@
 
 {% extends '::base.html.twig' %}
 
-{% block title %}Ads{% endblock title %}
+{% block title %}Desclasificados{% endblock title %}
 
 {% block stylesheets %}
   {{ parent() }}
@@ -28,10 +28,11 @@
 
 <!-- Placed at the end of the document so the pages load faster -->
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js') }}"></script>
+{#<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js') }}"></script>#}
 
 <!-- include checkRadio plugin //Custom check & Radio  -->
-<script type="text/javascript" src="{{ asset('assets/js/icheck.min.js') }}"></script>
+{#<script type="text/javascript" src="{{ asset('assets/js/icheck.min.js') }}"></script>#}
+
 
 
 <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
@@ -67,6 +68,10 @@
 <!-- include jquery.fs plugin for custom scroller and selecter  -->
 <script src="{{ asset('assets/plugins/jquery.fs.scroller/jquery.fs.scroller.js') }}"></script>
 <script src="{{ asset('assets/plugins/jquery.fs.selecter/jquery.fs.selecter.js') }}"></script>
+
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
 {% endblock javascripts %}
 
         

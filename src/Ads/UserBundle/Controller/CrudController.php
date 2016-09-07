@@ -22,7 +22,13 @@ class CrudController extends Controller
         $user = $this->container->get('security.context')->getToken()->getUser();
         //$user = $em->find('UserBundle:Users', $u->getUserId());
         $form = $this->createForm(new UserType(), $user);
-        $form->setData($user);*/
+        $form->setData($user);*/       
+       
+        /*$location = new Location();
+        $form = $this->createForm(new LocationType(), $location);
+        
+        return $this->render('TplFrontendBundle:UserAnnounce:user-profile.html.twig', array(
+            'form' => $form->createView()));*/
         
         return $this->render('TplFrontendBundle:UserAnnounce:user-profile.html.twig');
     } 

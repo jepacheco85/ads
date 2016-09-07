@@ -25,12 +25,12 @@ class AnnounceController extends Controller
         $em = $this->get('doctrine')->getEntityManager();
         $categories = $em->getRepository('AnnounceBundle:Category')->findAll();
         $subcategories = $em->getRepository('AnnounceBundle:Subcategory')->findAll();
-        $states = $em->getRepository('AddressBundle:State')->findAll();
-        $localities = $em->getRepository('AddressBundle:Locality')->findAll();
+        $states = $em->getRepository('AddressBundle:Province')->findAll();
+        $localities = $em->getRepository('AddressBundle:City')->findAll();
         
         $subcategory = $em->getRepository('AnnounceBundle:Subcategory')->findOneBySubcategoryId(array('category' =>
                 $request->request->get('category')));
-        $locality = $em->getRepository('AddressBundle:Locality')->findOneById(array('state' =>
+        $locality = $em->getRepository('AddressBundle:City')->findOneById(array('state' =>
                 $request->request->get('locality')));
         
         $post = new \DateTime();
@@ -100,7 +100,7 @@ class AnnounceController extends Controller
              
               $announce->upload();  
               $announce->setPost($post);
-              $announce->setLocality($locality);
+              $announce->setCity($locality);
               $announce->setSubcategory($subcategory);
               $announce->setUser($usuario);
               $em->persist($announce);
@@ -118,7 +118,7 @@ class AnnounceController extends Controller
               }else{
                   $announce->upload();
                   $announce->setPost($post);
-                  $announce->setLocality($locality);
+                  $announce->setCity($locality);
                   $announce->setSubcategory($subcategory);
                   $announce->setUser($u);
                   $em->persist($announce);
@@ -191,12 +191,19 @@ class AnnounceController extends Controller
         $em = $this->get('doctrine')->getEntityManager();
         $categories = $em->getRepository('AnnounceBundle:Category')->findAll();
         $subcategories = $em->getRepository('AnnounceBundle:Subcategory')->findAll();
-        $states = $em->getRepository('AddressBundle:State')->findAll();
-        $localities = $em->getRepository('AddressBundle:Locality')->findAll();
+        $states = $em->getRepository('AddressBundle:Province')->findAll();
+        $localities = $em->getRepository('AddressBundle:City')->findAll();
         $subcateg = $em->getRepository('AnnounceBundle:Subcategory')->findBy(array('slug' => $subcategory));        
         
+            /*$dql = "SELECT a FROM AnnounceBundle:Announce WHERE subcategory "
             $announces = $em->getRepository('AnnounceBundle:Announce')->findBy(array('subcategory' =>
-            $subcateg[0]->getSubcategoryId()), array('post'=>'ASC'));
+            $subcateg[0]->getSubcategoryId()), array('post'=>'ASC'));*/
+        
+        $query = $em->createQuery(
+            'SELECT a
+            FROM AnnounceBundle:Announce a
+            WHERE a.subcategory = :subcategory')->setParameter('subcategory', $subcateg[0]->getSubcategoryId());    
+        $announces = $query->getResult();
             
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($announces, $this->get('request')->query->
@@ -218,9 +225,9 @@ class AnnounceController extends Controller
         $em = $this->get('doctrine')->getEntityManager();
         $categories = $em->getRepository('AnnounceBundle:Category')->findAll();
         $subcategories = $em->getRepository('AnnounceBundle:Subcategory')->findAll();
-        $states = $em->getRepository('AddressBundle:State')->findAll();
-        $localities = $em->getRepository('AddressBundle:Locality')->findAll();
-        $locat = $em->getRepository('AddressBundle:Locality')->findBy(array('id' => $locality));        
+        $states = $em->getRepository('AddressBundle:Province')->findAll();
+        $localities = $em->getRepository('AddressBundle:City')->findAll();
+        $locat = $em->getRepository('AddressBundle:City')->findBy(array('id' => $locality));        
         
             $announces = $em->getRepository('AnnounceBundle:Announce')->findBy(array('locality' =>
             $locat[0]->getId()), array('post'=>'ASC'));
@@ -280,11 +287,11 @@ class AnnounceController extends Controller
         $subcategories = $em->getRepository('AnnounceBundle:Subcategory')->findAll();
         
         $states = $em->getRepository('AddressBundle:State')->findAll();
-        $localities = $em->getRepository('AddressBundle:Locality')->findAll();
+        $localities = $em->getRepository('AddressBundle:City')->findAll();
         
         $subcategory = $em->getRepository('AnnounceBundle:Subcategory')->findOneBySubcategoryId(array('category' =>
                 $request->request->get('category')));
-        $locality = $em->getRepository('AddressBundle:Locality')->findOneById(array('state' =>
+        $locality = $em->getRepository('AddressBundle:City')->findOneById(array('state' =>
                 $request->request->get('locality')));
         
         $announces = $em->getRepository('AnnounceBundle:Announce')->getCategoryLocality($subcategory, $locality);  

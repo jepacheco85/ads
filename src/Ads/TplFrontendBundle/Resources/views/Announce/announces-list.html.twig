@@ -1,7 +1,7 @@
 {% extends 'TplFrontendBundle::page-default.html.twig' %}
 
 {# Redefinir el titulo de la pagina #}
-{% block title %}Post Ads | {{ parent() }}{% endblock title %}
+{% block title %}Listado | {{ parent() }}{% endblock title %}
 
 {% block bodyClasses %}{{ parent() }} home{% endblock bodyClasses %}
 
@@ -28,29 +28,37 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs add-tabs" id="ajaxTabs" role="tablist">
                                 <li class="active"><a href="ajax/1.html" data-url="ajax/1.html" role="tab"
-                                                      data-toggle="tab">All Ads <span class="badge">228,705</span></a>
+                                                      data-toggle="tab">Clasificados <span class="badge">228,705</span></a>
                                 </li>
-                                <li><a href="ajax/2.html" data-url="ajax/2.html" role="tab" data-toggle="tab">Business
+                                <li><a href="ajax/2.html" data-url="ajax/2.html" role="tab" data-toggle="tab">Negocio
                                     <span class="badge">22,805</span></a></li>
                                 <li><a href="ajax/3.html" data-url="ajax/3.html" role="tab" data-toggle="tab">Personal
                                     <span class="badge">18,705</span></a></li>
                             </ul>
 
 
+                            {#<div class="tab-filter">
+                                <select id="short" name="value" class="selectpicker" data-style="btn-select" data-width="auto">
+                                    <option>Ordenar por</option>
+                                    <option id="low-high">{{ knp_pagination_sortable(pagination, 'Precio: Bajo a Alto', 'a.price') }}</option>
+                                    <option id="high-low">Precio: Alto a Bajo</option>
+                                </select>
+                            </div>#}
+                            <form action="aaa.php" method="get" class="form_sort" id="myForm">
                             <div class="tab-filter">
                                 <select id="short" name="value" class="selectpicker" data-style="btn-select" data-width="auto">
-                                    <option>Short by</option>
-                                    <option id="low-high">Price: Low to High</option>
-                                    <option id="high-low">Price: High to Low</option>
+                                    <option>Ordenar por</option>
+                                    <option id="low-high">Precio: Bajo a Alto</option>
+                                    <option id="high-low">Precio: Alto a Bajo</option>
                                 </select>
                             </div>
+                            </form>
                         </div>
                         <!--/.tab-box-->
 
                         <div class="listing-filter">
                             <div class="pull-left col-xs-6">
-                                <div class="breadcrumb-list"><a href="#" class="current"> <span>All ads</span></a> of
-                                    New York <a href="#selectRegion" id="dropdownMenu1" data-toggle="modal"> <span
+                                <div class="breadcrumb-list"><a href="#" class="current"> <span>Clasificados</span></a> <a href="#selectRegion" id="dropdownMenu1" data-toggle="modal"> <span
                                             class="caret"></span> </a></div>
                             </div>
                             <div class="pull-right col-xs-6 text-right listing-view-action"><span
@@ -116,7 +124,7 @@
                                                                           title="Business Ads"> B </span> <span class="date"><i
                                                     class=" icon-clock"> </i> {{ announce.post|date("d/m/Y") }} </span> - <span
                                                     class="category"> {{ announce.subcategory.name }} </span>- <span class="item-location"><i
-                                                    class="fa fa-map-marker"></i> {{ announce.locality.name }} </span> </span></div>
+                                                    class="fa fa-map-marker"></i> {{ announce.city.name }} </span> </span></div>
                                     </div>
                                     <!--/.add-desc-box-->
                                     <div class="col-sm-3 text-right  price-box">
@@ -129,7 +137,7 @@
                                 {% endfor %}
                                 {% else %}
                                     <tr>
-                                          <th class="alert alert-info"><strong>There is not announce to show.<strong></th>                                          
+                                          <th class="alert alert-info"><strong>No hay clasificado para mostrar en estos momentos.<strong></th>                                          
                                     </tr>
                                 {% endif %}  
                                 <!--/.item-list-->
@@ -137,7 +145,7 @@
                         <!--/.adds-wrapper-->
 
                         <div class="tab-box  save-search-bar text-center"><a href=""> <i class=" icon-star-empty"></i>
-                            Save Search </a></div>
+                            Salvar Busqueda </a></div>
                     </div>
                     <div class="pagination-bar text-center">
                         <ul class="pagination">
@@ -147,9 +155,9 @@
                     <!--/.pagination-bar -->
 
                     <div class="post-promo text-center">
-                        <h2> Do you get anything for sell ? </h2>
-                        <h5>Sell your products online FOR FREE. It's easier than you think !</h5>
-                        <a href="{{ path('announce_post_ads') }}" class="btn btn-lg btn-border btn-post btn-danger">Post a Free Ad </a>
+                        <h2> Usted tiene algo para vender ? </h2>
+                        <h5>Vende tus productos online en DESCLASIFICADOS.COM. Es más fácil de lo que crees !</h5>
+                        <a href="{{ path('announce_post_ads') }}" class="btn btn-lg btn-border btn-post btn-danger">Publica Gratis</a>
                     </div>
                     <!--/.post-promo-->
 
@@ -168,7 +176,7 @@
   
 <script>
 
-/*$(document).ready(function(){
+    {#$(document).ready(function(){
         $('#link_articulos').click(function(){
                 $('#articulos').load('');
         });
@@ -177,10 +185,12 @@
   $('.selectpicker').selectpicker({
   style: 'btn-info',
   size: 4
-})      
- /*$(document).ready(function() {  
-  $(".selectpicker").selectpicker();
-});*/ 
+})   
+ $(document).ready(function() {  
+  $(".selectpicker").selectpicker({
+      $('#low-high').load({{ knp_pagination_sortable(pagination, 'Precio: Low to High', 'a.price') }});
+  });
+});#}
  
 </script>
 

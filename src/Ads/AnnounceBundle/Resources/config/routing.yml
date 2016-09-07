@@ -30,7 +30,11 @@ announces_search_category_location:
     path:     /announces/search
     defaults: { _controller: AnnounceBundle:Announce:searchCategoryLocality }
     
-announces_search_price:
-    path:     /announces/search/price
-    defaults: { _controller: AnnounceBundle:Announce:searchPrice }      
+announce_contact_advertiser_login:
+    path:     /contactar/anunciante/login/{id}
+    defaults: { _controller: AnnounceBundle:Mails:contactAdvertiserLogin }
+    
+announce_contact_advertiser_no_login:
+    path:     /contactar/anunciante/nologin/{id}
+    defaults: { _controller: AnnounceBundle:Mails:contactAdvertiserNoLogin }    
     

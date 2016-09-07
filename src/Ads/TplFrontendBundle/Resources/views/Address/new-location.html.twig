@@ -1,0 +1,19 @@
+<div class="panel panel-default">
+     <div class="panel-heading">
+        <h4 class="panel-title"><a href="#collapseB2" data-toggle="collapse"> Direcciones </a></h4>
+    </div>
+        <div class="panel-collapse collapse" id="collapseB2">
+            <div class="panel-body">
+                <form action="{{ path('user_profile_edit_address') }}" method="POST" novalidate role="form">
+                {{ form_row(form.address, {'attr':{'class':'form-control' }}) }}
+                {{ form_row(form.country) }}
+                {{ form_row(form.province) }}
+                {{ form_row(form.city) }}
+                <button type="submit" class="btn btn-success">
+                    Guardar
+                </button>
+                </form>
+            </div>
+        </div>
+</div>  
+    

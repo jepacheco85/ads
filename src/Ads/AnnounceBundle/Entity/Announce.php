@@ -78,11 +78,11 @@ class Announce
     public $imagenes;
     
     /**
-     * @var \Ads\AddressBundle\Entity\Locality
-     * @ORM\ManyToOne(targetEntity="Ads\AddressBundle\Entity\Locality")
-     * @ORM\JoinColumn(name="locality_id", referencedColumnName="id")
+     * @var \Ads\AddressBundle\Entity\City
+     * @ORM\ManyToOne(targetEntity="Ads\AddressBundle\Entity\City")
+     * @ORM\JoinColumn(name="city_id", referencedColumnName="id")
      */
-    private $locality;
+    private $city;
 
     /**
      * @var Subcategory
@@ -252,26 +252,26 @@ class Announce
     }
     
     /**
-     * Set locality
+     * Set city
      *
-     * @param \Ads\AddressBundle\Entity\Locality $locality
+     * @param \Ads\AddressBundle\Entity\City $city
      * @return Announce
      */
-    public function setLocality(\Ads\AddressBundle\Entity\Locality $locality = null)
+    public function setCity(\Ads\AddressBundle\Entity\City $city = null)
     {
-        $this->locality = $locality;
+        $this->city = $city;
 
         return $this;
     }
 
     /**
-     * Get locality
+     * Get city
      *
-     * @return \Ads\AddressBundle\Entity\Locality
+     * @return \Ads\AddressBundle\Entity\City
      */
-    public function getLocality()
+    public function getCity()
     {
-        return $this->locality;
+        return $this->city;
     }
 
 

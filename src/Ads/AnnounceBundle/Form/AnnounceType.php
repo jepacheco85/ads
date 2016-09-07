@@ -13,7 +13,7 @@ class AnnounceType extends AbstractType
         $builder
             ->add('title')   
             ->add('type', 'choice', array('label' => "Type: ",
-                      'choices' => array('2' => 'Seleccione','1' => 'Private', '0' => 'Business'),
+                      'choices' => array('2' => 'Seleccione','1' => 'Privado', '0' => 'Negocio'),
                       'expanded' => false,
                       'multiple' => false,
                       'required' => true,  

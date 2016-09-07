@@ -1,6 +1,6 @@
 
 <div class="locations-list  list-filter">
-    <h5 class="list-title"><strong><a href="#">Popular Locations</a></strong></h5>
+    <h5 class="list-title"><strong><a href="#">Localidades </a></strong></h5>
         <ul class="browse-list list-unstyled long-list">
             {% for locality in locations %}
             <li><a href="{{ path('announces_list_location', {'locality': locality.id }) }}"> {{ locality.name }} ({{ locality.cant }})</a></li>                                    

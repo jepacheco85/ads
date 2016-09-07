@@ -1,78 +1,170 @@
-{% extends 'TplFrontendBundle::page-default.html.twig' %}
+<div id="wrapper"> 
+    
+   <div class="header">
+        <nav class="navbar   navbar-site navbar-default" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    
+                    <span class="logo-icon"><i class="icon icon-search-1 ln-shadow-logo shape-0"></i> </span>
+                        DESCLASIFICADOS<span>.COM</span></div>
+                <div class="navbar-collapse collapse">                
+                
+                      <ul class="nav navbar-nav navbar-right">
+                        
+                    </ul>                  
+                    
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+    </div>
+    <!-- /.header -->
 
-{# Redefinir el titulo de la pagina #}
-{% block title %}Login | {{ parent() }}{% endblock title %}
-
-{% block bodyClasses %}{{ parent() }} home{% endblock bodyClasses %}
-
-{% block pageDefaultContent %}
-  {{ parent() }}
-  
  <div class="main-container">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-5 login-box">
-                    <div class="panel panel-default">
-                        <div class="panel-intro text-center">
-                            <h2 class="logo-title">
-                                <!-- Original Logo will be placed here  -->
-                                <span class="logo-icon">
-                                    <i class="icon icon-search-1 ln-shadow-logo shape-0"></i> </span> BOOT<span>CLASSIFIED </span>
-                            </h2>
+    <div class="container">     
+            
+                
+                   
+                    <div class="row">
+                        <div class="col-sm-6">
+                            
+                            <div class="seller-info seller-profile">
+                                <div class="seller-profile-img">
+                                    {% if announce.user.avatar == null %}
+                                       <a><img src="{{ asset('assets/images/user.jpg') }}" class="img-responsive thumbnail" alt="img"> </a>
+                                    {% else %}
+                                       <a><img src='{{ asset('bundles/uploads/users/') }}{{ announce.user.avatar }}' class="img-responsive thumbnail" alt="img"> </a> 
+                                    {% endif %}                                     
+                                </div>
+                                <h3 class="no-margin no-padding link-color uppercase "> {{ announce.user.name }} {{ announce.user.lastname }} </h3>
+
+                                <div class="text-muted">
+                                    99.8% positive Feedback
+                                </div>                                
+
+                                <div class="seller-social-list">
+
+                                    <ul class="share-this-post">
+
+
+                                        <li><a class="google-plus"><i class="fa fa-google-plus"></i></a>
+                                        </li>
+                                        <li><a class="facebook"><i class="fa fa-facebook"></i></a>
+                                        </li>
+                                        <li><a><i class="fa fa-twitter"></i></a>
+                                        </li>
+                                        <li><a class="pinterest"><i class="fa fa-pinterest"></i></a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>                                
+
                         </div>
-                        <div class="panel-body">
-                            {% for flashMessage in app.session.flashbag.get('info') %}
-                              <p class="alert alert-info">{{ flashMessage }}</p>
-                            {% endfor %}
-                            <form role="form" action="{{ path('user_login') }}" method="post">
-                                <div class="form-group">
-                                    <label for="sender-email" class="control-label">Email:</label>
+                        <div class="col-sm-6">
 
-                                    <div class="input-icon"><i class="icon-user fa"></i>
-                                        <input id="sender-email" type="text" placeholder="Email"
-                                               class="form-control email" name="_username">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="user-pass" class="control-label">Password:</label>
+                            <div class="seller-contact-info">
 
-                                    <div class="input-icon"><i class="icon-lock fa"></i>
-                                        <input type="password" class="form-control" placeholder="Password"
-                                               id="user-pass" name="_password">
-                                        <input type="hidden" name="_target_path" value="/account"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    
-                                    <input name="Button" type="submit" class="btn btn-primary btn-block" value="Entrar" />
-                                </div>
-                            </form>
-                        </div>
-                        <div class="panel-footer">
+                                <h3 class="no-margin uppercase color-danger"> Información Contacto </h3>
 
-                            <div class="checkbox pull-left">
-                                <label> <input type="checkbox" value="1" name="remember" id="remember"> Keep me logged
-                                    in</label>
+                                <dl class="dl-horizontal">
+                                    {% if announce.user.addresses is empty %}
+                                    <dt>Localidad:</dt>                                    
+                                    <dd class="contact-sensitive"> No definida
+                                    </dd>
+                                    <dt>Dirección:</dt>
+                                    <dd class="contact-sensitive"> No definida
+                                    </dd>
+                                    {% else %}
+                                     <dt>Localidad:</dt>                                    
+                                    <dd class="contact-sensitive"> {{ announce.user.addresses[0].locality }}
+                                    </dd>
+                                    <dt>Dirección:</dt>
+                                    <dd class="contact-sensitive"> {{ announce.user.addresses[0].address }}
+                                    </dd>   
+                                    {% endif %}
+                                    <dt>Teléfono:</dt>
+                                    <dd class="contact-sensitive"> {{ announce.user.cel }}</dd>                                    
+                                </dl>
+
                             </div>
 
+                        </div>
+                    </div>           
+    </div>
+                                
+    <div class="container">
+        <div class="row">
+                <div class="col-sm-9 page-content col-thin-right">
+                    <div class="inner inner-box ads-details-wrapper">
+                        <h2> {{ announce.title }}
+                            <small class="label label-default adlistingtype">DESCLASIFICADOS.COM</small>
+                        </h2>
+                        <span class="info-row"> <span class="date"><i class=" icon-clock"> </i> {{ announce.post|date("d/m/Y") }} </span> - <span
+                                class="category">{{ announce.subcategory }} </span>- <span class="item-location"><i
+                                class="fa fa-map-marker"></i> {{ announce.locality.name }} </span> </span>
 
-                            <p class="text-center pull-right"><a href="forgot-password.html"> Lost your password? </a>
-                            </p>
+                        <div class="ads-image">
+                            <h1 class="pricetag"> ${{ announce.price }}</h1>
+                            <ul class="bxslider">
+                            {% if announce.path == null %}                            
+                                <li><img src="{{ asset('bundles/uploads/announces/no_image.jpg') }}" alt="img"/></li>                           
+                            {% else %}
+                               <li><img src="{{ asset('bundles/uploads/announces/') }}{{ announce.path[0] }}" alt="img"/></li>  
+                            {% endif%} 
+                            </ul> 
+                        </div>
+                        <!--ads-image-->
 
-                            <div style=" clear:both"></div>
+                        <div class="Ads-Details">
+                            <h5 class="list-title"><strong>Detalles del Clasificado</strong></h5>
+
+                            <div class="row">
+                                <div class="ads-details-info col-md-8">
+                                    <p>{{ announce.description }}</p>  
+                                </div>
+                                <div class="col-md-4">
+                                    <aside class="panel panel-body panel-details">
+                                        <ul>
+                                            <li>
+                                                <p class=" no-margin "><strong>Price:</strong> $ {{ announce.price }}</p>
+                                            </li>
+                                            <li>
+                                                <p class="no-margin"><strong>Type:</strong> {{ announce.subcategory.category }},{{ announce.subcategory }}</p>
+                                            </li>
+                                            <li>
+                                                <p class="no-margin"><strong>Location:</strong> {{ announce.locality.name }} </p>
+                                            </li>                                           
+                                            
+                                            <li>
+                                                <p class="no-margin"><strong>Post:</strong> {{ announce.post|date("d/m/Y") }}</p>
+                                            </li>
+                                        </ul>
+                                    </aside>                                    
+                                </div>
+                            </div>                            
                         </div>
                     </div>
-                    <div class="login-box-btm text-center">
-                        <p> Don't have an account? <br>
-                            <a href="{{ path('user_sigup') }}"><strong>Sign Up !</strong> </a></p>
-                    </div>
+                    <!--/.ads-details-wrapper-->
+
                 </div>
+                <!--/.page-content-->                
             </div>
+        </div>                            
+                                
+        <div class="container">
+        <div class="Ads-Details">
+                            <h5 class="list-title"><strong>Mensaje de {{ user[0].name }}</strong> Tele {{ user[0].tele }}</h5>
+            <div class="row">                                
+                <div class="ads-details-info col-md-8">
+                    <p>{{ user[0].message }}</p>  
+                </div>
+            </div>                            
         </div>
-    </div>
-    <!-- /.main-container -->    
-    
-    {# Incluir en la pagina el template Page Info #}
-    {% include 'TplFrontendBundle:Partial:pageinfo.html.twig' %}
-  
-{% endblock pageDefaultContent %}  
+                  
+    </div>                           
+                                
+    </div> 
+
+ </div>

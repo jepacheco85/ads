@@ -10,7 +10,8 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
-use Ads\UserBundle\Form\UserType, Ads\UserBundle\Entity\Users;
+use Ads\UserBundle\Entity\Users;
+use Ads\UserBundle\Form\UserType;
 
 
 class DefaultController extends Controller
@@ -167,6 +168,7 @@ class DefaultController extends Controller
         
         $announces = $em->getRepository('AnnounceBundle:Announce')->getAnnouncesByUser($user);
         
+        
         return $this->render('TplFrontendBundle:UserAnnounce:profile.html.twig', array(
             'user' => $user,
             'announces' => $announces));
@@ -179,6 +181,8 @@ class DefaultController extends Controller
         $subcategories = $em->getRepository('AnnounceBundle:Subcategory')->findAll(); 
         
         $user = $em->getRepository('UserBundle:Users')->findOneByUserId(array('userId' => $u));
+        $following = $em->getRepository('UserBundle:Users')->getMyFollowing($u);
+        $followers = $em->getRepository('UserBundle:Users')->getMyFollowers($u); 
         
         $announces = $em->getRepository('AnnounceBundle:Announce')->getAnnouncesByUser($user);
         
@@ -189,6 +193,8 @@ class DefaultController extends Controller
         return $this->render('TplFrontendBundle:UserAnnounce:profile.html.twig', array(
             'user' => $user,
             'announces' => $announces,
+            'following' => $following,
+            'followers' => $followers,
             'pagination' => $pagination));
     }
     
@@ -212,5 +218,69 @@ class DefaultController extends Controller
         //Cargamos el componente de sesion en todos los metodos
         $this->session = new Session();
     }
+    
+    public function followUserAction($id)
+    {
+      $em = $this->getDoctrine()->getManager();  
+      if(!$this->get('security.context')->isGranted('ROLE_USER')){
+        
+        // $users = $em->getRepository('VivimUserBundle:UserVivim')->mostActiveUsers();
+        // Crear un mensaje flash para notificar al usuario que se ha registrado correctamente
+        $this->get('session')->getFlashBag()->add('info', '¡Upsss! Para seguir a un usuario usted debe estar registrado y logueado.');
+        return $this->redirect($this->generateUrl('user_sigup')); 
+      }else{
+          $user = $this->container->get('security.context')->getToken()->getUser();
+          $follow = $em->getRepository('UserBundle:Users')->findOneByUserId(array('userId' => $id));
+          $user->addMyFollow($follow);
+          $user->addFollowWithMe($user);
+          
+          try{
+            $em->persist($user);
+            $em->flush();
+            
+            $following = $em->getRepository('UserBundle:Users')->getMyFollowing($id);
+            $followers = $em->getRepository('UserBundle:Users')->getMyFollowers($id); 
+            
+            $announces = $em->getRepository('AnnounceBundle:Announce')->getAnnouncesByUser($follow);
+        
+            $paginator = $this->get('knp_paginator');
+            $pagination = $paginator->paginate($announces, $this->get('request')->query->
+                  get('page', 1) /*page number*/, 5 /*limit per page*/ );
+            
+            return $this->render('TplFrontendBundle:UserAnnounce:profile.html.twig', array(
+            'user' => $follow,
+            'announces' => $announces,
+            'following' => $following,
+            'followers' => $followers,
+            'pagination' => $pagination));
+          }
+          catch (\Exception $e){
+              // Crear un mensaje flash para notificar al usuario que se ha registrado correctamente
+                $this->get('session')->getFlashBag()->add('info', '¡Upsss! Actualmente ya seguias a ese usuario.');
+                
+            $following = $em->getRepository('UserBundle:Users')->getMyFollowing($id);
+            $followers = $em->getRepository('UserBundle:Users')->getMyFollowers($id); 
+                
+            $announces = $em->getRepository('AnnounceBundle:Announce')->getAnnouncesByUser($follow);
+        
+            $paginator = $this->get('knp_paginator');
+            $pagination = $paginator->paginate($announces, $this->get('request')->query->
+                  get('page', 1) /*page number*/, 5 /*limit per page*/ );
+            
+            return $this->render('TplFrontendBundle:UserAnnounce:profile.html.twig', array(
+            'user' => $follow,
+            'announces' => $announces,
+            'following' => $following,
+            'followers' => $followers,
+            'pagination' => $pagination));
+          }
+                
+        
+       }
+     } 
+     
+    
+     
+   
     
 }

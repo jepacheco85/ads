@@ -12,7 +12,7 @@ use Ads\AddressBundle\Entity\Address;
  * Ads\UserBundle\Entity\Users
  *
  * @ORM\Table(name="users")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Ads\UserBundle\Repository\UserRepository")
  * @UniqueEntity("email")
  */
 class Users implements \Symfony\Component\Security\Core\User\UserInterface
@@ -92,13 +92,28 @@ class Users implements \Symfony\Component\Security\Core\User\UserInterface
     /**
      * @var \Ads\AddressBundle\Entity\Address Arreglo que contiene todas las direcciones del usuario.
      *
-     * @ORM\OneToMany(targetEntity="Ads\AddressBundle\Entity\Address", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Ads\AddressBundle\Entity\Address", mappedBy="user", cascade={"persist", "remove"})
      */
     protected $addresses;
+    
+     /**
+     * @ORM\ManyToMany(targetEntity="Users", mappedBy="myFollow", cascade={"persist", "remove"})
+     */
+    protected $followWithMe;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Users", inversedBy="followWithMe")
+     * @ORM\JoinTable(name="follow_users",
+     * joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="user_id")},
+     * inverseJoinColumns={@ORM\JoinColumn(name="follow_user_id", referencedColumnName="user_id")})
+     */
+    protected $myFollow;
     
     public function __construct()
     {        
         $this->addresses = new ArrayCollection();
+        $this->followWithMe = new ArrayCollection();
+        $this->myFollow = new ArrayCollection();
     }
     
     public function subirFoto()
@@ -354,7 +369,55 @@ class Users implements \Symfony\Component\Security\Core\User\UserInterface
     {
         return $this->addresses;
     }
+    
+    /**
+     * Add followWithMe
+     *
+     * @param \Ads\UserBundle\Entity\Users $followWithMe
+     * @return Users
+     */
+    public function addFollowWithMe(\Ads\UserBundle\Entity\Users $followWithMe)
+    {
+        $this->followWithMe[] = $followWithMe;
 
+        return $this;
+    }
+
+    /**
+     * Remove followWithMe
+     *
+     * @param \Ads\UserBundle\Entity\Users $followWithMe
+     */
+    public function removeFollowWithMe(\Ads\UserBundle\Entity\Users $followWithMe)
+    {
+        $this->followWithMe->removeElement($followWithMe);
+    }
+
+
+    /**
+     * Add myFollow
+     *
+     * @param \Ads\UserBundle\Entity\Users $myFollow
+     * @return Users
+     */
+    public function addMyFollow(\Ads\UserBundle\Entity\Users $myFollow)
+    {
+        $this->myFollow[] = $myFollow;
+
+        return $this;
+    }
+
+    /**
+     * Remove myFollow
+     *
+     * @param \Ads\UserBundle\Entity\Users $myFollow
+     */
+    public function removeMyFollow(\Ads\UserBundle\Entity\Users $myFollow)
+    {
+        $this->myFollow->removeElement($myFollow);
+    }
+
+    
 
     /**
      * Set avatar

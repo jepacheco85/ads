@@ -1,78 +1,96 @@
-{% extends 'TplFrontendBundle::page-default.html.twig' %}
-
-{# Redefinir el titulo de la pagina #}
-{% block title %}Login | {{ parent() }}{% endblock title %}
-
-{% block bodyClasses %}{{ parent() }} home{% endblock bodyClasses %}
-
-{% block pageDefaultContent %}
-  {{ parent() }}
-  
- <div class="main-container">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-5 login-box">
-                    <div class="panel panel-default">
-                        <div class="panel-intro text-center">
-                            <h2 class="logo-title">
-                                <!-- Original Logo will be placed here  -->
-                                <span class="logo-icon">
-                                    <i class="icon icon-search-1 ln-shadow-logo shape-0"></i> </span> BOOT<span>CLASSIFIED </span>
-                            </h2>
-                        </div>
-                        <div class="panel-body">
-                            {% for flashMessage in app.session.flashbag.get('info') %}
-                              <p class="alert alert-info">{{ flashMessage }}</p>
-                            {% endfor %}
-                            <form role="form" action="{{ path('user_login') }}" method="post">
-                                <div class="form-group">
-                                    <label for="sender-email" class="control-label">Email:</label>
-
-                                    <div class="input-icon"><i class="icon-user fa"></i>
-                                        <input id="sender-email" type="text" placeholder="Email"
-                                               class="form-control email" name="_username">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="user-pass" class="control-label">Password:</label>
-
-                                    <div class="input-icon"><i class="icon-lock fa"></i>
-                                        <input type="password" class="form-control" placeholder="Password"
-                                               id="user-pass" name="_password">
-                                        <input type="hidden" name="_target_path" value="/account"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    
-                                    <input name="Button" type="submit" class="btn btn-primary btn-block" value="Entrar" />
-                                </div>
-                            </form>
-                        </div>
-                        <div class="panel-footer">
-
-                            <div class="checkbox pull-left">
-                                <label> <input type="checkbox" value="1" name="remember" id="remember"> Keep me logged
-                                    in</label>
-                            </div>
-
-
-                            <p class="text-center pull-right"><a href="forgot-password.html"> Lost your password? </a>
-                            </p>
-
-                            <div style=" clear:both"></div>
-                        </div>
-                    </div>
-                    <div class="login-box-btm text-center">
-                        <p> Don't have an account? <br>
-                            <a href="{{ path('user_sigup') }}"><strong>Sign Up !</strong> </a></p>
-                    </div>
-                </div>
+<!-- Modal contactAdvertiser -->
+{% if is_granted('ROLE_USER') %}
+<div class="modal fade" id="contactAdvertiser" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title"><i class=" icon-mail-2"></i> Datos de tu Contacto </h4>
             </div>
+            <form role="form" action="{{ path('announce_contact_advertiser_login', {'id': announce.announceId}) }}" method="POST">
+            <div class="modal-body">                
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Nombre:</label>
+                        <input class="form-control required" id="recipient-name" value="{{ app.user.name}} {{ app.user.lastname}}"
+                               data-placement="top" data-trigger="manual"
+                               data-content="Must be at least 3 characters long, and must only contain letters."
+                               type="text" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="sender-email" class="control-label">E-mail:</label>
+                        <input id="sender-email" type="text"
+                               data-content="Must be a valid e-mail address (user@gmail.com)" data-trigger="manual"
+                               data-placement="top" value="{{ app.user.email }}" class="form-control email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-Phone-Number" class="control-label">Teléfono:</label>
+                        <input type="text" maxlength="60" class="form-control" id="recipient-Phone-Number" value="{{ app.user.cel }}" name="tele">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="control-label">Mensaje <span class="text-count">(300) </span>:</label>
+                        <textarea class="form-control" id="message-text" placeholder="Tu mensaje aqui.."
+                                  data-placement="top" data-trigger="manual" name="message"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <p class="help-block pull-left text-danger hide" id="form-error">&nbsp; The form is not
+                            valid. </p>
+                    </div>                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-success pull-right">Enviar Mensaje!</button>
+            </div>
+            </form>
         </div>
     </div>
-    <!-- /.main-container -->    
-    
-    {# Incluir en la pagina el template Page Info #}
-    {% include 'TplFrontendBundle:Partial:pageinfo.html.twig' %}
-  
-{% endblock pageDefaultContent %}  
+</div>
+{% else %}
+ <div class="modal fade" id="contactAdvertiser" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title"><i class=" icon-mail-2"></i> Datos de tu Contacto </h4>
+            </div>
+            <form role="form" action="{{ path('announce_contact_advertiser_no_login', {'id': announce.announceId}) }}" method="POST">
+            <div class="modal-body">                
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Nombre:</label>
+                        <input class="form-control required" id="recipient-name" placeholder="Tu nombre"
+                               data-placement="top" data-trigger="manual"
+                               data-content="Must be at least 3 characters long, and must only contain letters."
+                               type="text" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="sender-email" class="control-label">E-mail:</label>
+                        <input id="sender-email" type="text"
+                               data-content="Must be a valid e-mail address (user@gmail.com)" data-trigger="manual"
+                               data-placement="top" placeholder="Tu email" class="form-control email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-Phone-Number" class="control-label">Teléfono:</label>
+                        <input type="text" maxlength="10" class="form-control" id="recipient-Phone-Number" placeholder="Tu teléfono" name="tele">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="control-label">Mensaje <span class="text-count">(300) </span>:</label>
+                        <textarea class="form-control" id="message-text" placeholder="Tu mensaje aqui.."
+                                  data-placement="top" data-trigger="manual" name="message"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <p class="help-block pull-left text-danger hide" id="form-error">&nbsp; The form is not
+                            valid. </p>
+                    </div>               
+            </div>
+             <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-success pull-right">Enviar Mensaje!</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>   
+{% endif %}    
+
+<!-- /.modal -->

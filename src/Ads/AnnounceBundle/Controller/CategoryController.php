@@ -43,13 +43,13 @@ class CategoryController extends Controller
                  $result[$j+1]['name'] = $tempN;
              }
          }
-     }  /*
+     } 
      $aux = array();
      for( $i = 0; $i < 11 ; $i++ ){
          $aux[$i] = $result[$i];
-     }*/
+     }
              
-       return $this->render('TplFrontendBundle:Announce:announce-popular-categories.html.twig', array('subcategories' => $result));
+       return $this->render('TplFrontendBundle:Announce:announce-popular-categories.html.twig', array('subcategories' => $aux));
     }
     
     public function categoriesPopularSideBarAction()
@@ -81,12 +81,12 @@ class CategoryController extends Controller
                  $result[$j+1]['name'] = $tempN;
              }
          }
-     }  /*
+     }  
      $aux = array();
-     for( $i = 0; $i < 11 ; $i++ ){
+     for( $i = 0; $i < 20 ; $i++ ){
          $aux[$i] = $result[$i];
-     }*/
+     }
              
-       return $this->render('TplFrontendBundle:Sidebar:sidebar-left-categories.html.twig', array('categories' => $result));
+       return $this->render('TplFrontendBundle:Sidebar:sidebar-left-categories.html.twig', array('categories' => $aux));
     }
 }

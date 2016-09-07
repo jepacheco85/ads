@@ -11,179 +11,109 @@ namespace Ads\AddressBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * State
+ * Ads\AddressBundle\Entity\Province
  *
- * @ORM\Table(name="state")
- * @ORM\Entity
+ * @ORM\Table(name="province")
+ * @ORM\Entity(repositoryClass="Ads\AddressBundle\Repository\ProvinceRepository")
  */
-class State
+class Province
 {
     /**
-     * @var integer
+     * @var integer $id
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
-
+    protected $id;
     /**
-     * @var string
+     * @var string $name
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
-    private $name;
-
+    protected $name;
     /**
-     * @var string
+     * @var string $slug
      *
-     * @ORM\Column(name="slug", type="string", length=255)
+     * @ORM\Column(name="slug", type="string", length=255, unique=true)
      */
-    private $slug;
-
+    protected $slug;
     /**
-     * @var string
-     *
-     * @ORM\Column(name="abrev", type="string", length=255)
-     */
-    private $abrev;
-
-    /**
-     * @var \Ads\AddressBundle\Entity\Country
-     * @ORM\ManyToOne(targetEntity="Ads\AddressBundle\Entity\Country")
+     * @ORM\ManyToOne(targetEntity="Ads\AddressBundle\Entity\Country", inversedBy="provinces")
      * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
      */
-    private $country;
-    
+    protected $country;
     /**
-     * @var \Ads\AddressBundle\Entity\Locality
-     * @ORM\OneToMany(targetEntity="Ads\AddressBundle\Entity\Locality", mappedBy="state")
+     * @ORM\OneToMany(targetEntity="Ads\AddressBundle\Entity\City", mappedBy="province")
      */
-    private $locality;
-
+    protected $cities;
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->cities = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
-
     /**
      * Set name
      *
-     * @param string $name
-     * @return State
+     * @param  string   $name
+     * @return Province
      */
     public function setName($name)
     {
         $this->name = $name;
-    
         return $this;
     }
-
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
         return $this->name;
     }
-
     /**
-     * Set statePrefix
+     * Set slug
      *
-     * @param string $statePrefix
-     * @return State
+     * @param  string   $slug
+     * @return Province
      */
-    public function setStatePrefix($statePrefix)
+    public function setSlug($slug)
     {
-        $this->statePrefix = $statePrefix;
-    
+        $this->slug = $slug;
         return $this;
     }
-
     /**
-     * Get statePrefix
+     * Get slug
      *
-     * @return string 
+     * @return string
      */
-    public function getStatePrefix()
+    public function getSlug()
     {
-        return $this->statePrefix;
+        return $this->slug;
     }
-
-    /**
-     * Set areaCode
-     *
-     * @param string $areaCode
-     * @return State
-     */
-    public function setAreaCode($areaCode)
-    {
-        $this->areaCode = $areaCode;
-    
-        return $this;
-    }
-
-    /**
-     * Get areaCode
-     *
-     * @return string 
-     */
-    public function getAreaCode()
-    {
-        return $this->areaCode;
-    }
-
-    /**
-     * Set timeZone
-     *
-     * @param string $timeZone
-     * @return State
-     */
-    public function setTimeZone($timeZone)
-    {
-        $this->timeZone = $timeZone;
-    
-        return $this;
-    }
-
-    /**
-     * Get timeZone
-     *
-     * @return string 
-     */
-    public function getTimeZone()
-    {
-        return $this->timeZone;
-    }
-
     /**
      * Set country
      *
-     * @param \Ads\AddressBundle\Entity\Country $country
-     * @return State
+     * @param  \Ads\AddressBundle\Entity\Country $country
+     * @return Province
      */
     public function setCountry(\Ads\AddressBundle\Entity\Country $country = null)
     {
         $this->country = $country;
-    
         return $this;
     }
-
     /**
      * Get country
      *
@@ -193,116 +123,37 @@ class State
     {
         return $this->country;
     }
-    
     /**
-     * Add address
+     * Add cities
      *
-     * @param \Ads\AddressBundle\Entity\Address $address
-     * @return State
+     * @param  \Ads\AddressBundle\Entity\City $cities
+     * @return Province
      */
-    public function addAddress(\Ads\AddressBundle\Entity\Address $address)
+    public function addCity(\Ads\AddressBundle\Entity\City $cities)
     {
-        $this->addresses[] = $address;
-    
+        $this->cities[] = $cities;
         return $this;
     }
-
     /**
-     * Remove address
+     * Remove cities
      *
-     * @param \Ads\AddressBundle\Entity\Address $address
+     * @param \Ads\AddressBundle\Entity\City $cities
      */
-    public function removeAddress(\Ads\AddressBundle\Entity\Address $address)
+    public function removeCity(\Ads\AddressBundle\Entity\City $cities)
     {
-        $this->addresses->removeElement($address);
+        $this->cities->removeElement($cities);
     }
-
-    /**
-     * Get addresses
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getAddresses()
+    public function __toString()
     {
-        return $this->addresses;
+        return $this->name;
     }
-
     /**
-     * Add locality
+     * Get cities
      *
-     * @param \Ads\AddressBundle\Entity\Locality $locality
-     * @return State
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function addLocality(\Ads\AddressBundle\Entity\Locality $locality)
+    public function getCities()
     {
-        $this->locality[] = $locality;
-    
-        return $this;
-    }
-
-    /**
-     * Remove locality
-     *
-     * @param \Ads\AddressBundle\Entity\Locality $locality
-     */
-    public function removeLocality(\Ads\AddressBundle\Entity\Locality $locality)
-    {
-        $this->locality->removeElement($locality);
-    }
-
-    /**
-     * Get locality
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getLocality()
-    {
-        return $this->locality;
-    }
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return State
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-    
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string 
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * Set abrev
-     *
-     * @param string $abrev
-     * @return State
-     */
-    public function setAbrev($abrev)
-    {
-        $this->abrev = $abrev;
-    
-        return $this;
-    }
-
-    /**
-     * Get abrev
-     *
-     * @return string 
-     */
-    public function getAbrev()
-    {
-        return $this->abrev;
+        return $this->cities;
     }
 }

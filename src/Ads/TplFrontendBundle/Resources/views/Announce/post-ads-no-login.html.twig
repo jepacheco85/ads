@@ -4,7 +4,7 @@
                                     <fieldset>
                                         <!-- Select Basic -->
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">Category</label>
+                                            <label class="col-md-3 control-label">Categoría</label>
 
                                             <div class="col-md-8">
                                                 <select class="form-control selecter" name="category" id="search-category">
@@ -27,7 +27,7 @@
                                                 
                                         <!-- Select Basic -->
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">Locality</label>
+                                            <label class="col-md-3 control-label">Localidad</label>
 
                                             <div class="col-md-8">
                                                 <select class="form-control selecter" name="locality" id="search-category">
@@ -38,7 +38,7 @@
                                                     </option>
                                                     {% if localities %}
                                                         {% for locality in localities %}
-                                                           {% if locality.state.name == state.name %}
+                                                           {% if locality.province.name == state.name %}
                                                               <option value="{{ locality.Id }}"> {{ locality.name }} </option>
                                                            {% endif %}
                                                         {% endfor %}
@@ -50,7 +50,7 @@
 
                                         <!-- Multiple Radios (inline) -->
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">Add Type</label>
+                                            <label class="col-md-3 control-label">Tipo de Clasificado</label>
 
                                             <div class="col-md-8">
                                                 <div class="radio">
@@ -61,21 +61,22 @@
 
                                         <!-- Text input-->
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label" for="Adtitle">Ad title</label>
+                                            <label class="col-md-3 control-label" for="Adtitle">Nombre Clasificado</label>
 
                                             <div class="col-md-8">
-                                                {{ form_widget(form.title, {'attr':{'class': 'form-control input-md', 'placeholder': 'Title' }} ) }}
-                                                <span class="help-block">A great title needs at least 60 characters. </span>
+                                                {{ form_widget(form.title, {'attr':{'class': 'form-control input-md', 'placeholder': 'Title' }} ) }}                                                
                                             </div>
                                         </div>
 
                                         <!-- Textarea -->
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label" for="textarea">Describe ad </label>
+                                            <label class="col-md-3 control-label" for="textarea">Descripción </label>
 
                                             <div class="col-md-8">
                                                 {{ form_widget(form.description, {'attr':{'id': 'textarea', 'class': 'form-control', 'placeholder': 'Description' }} ) }}
+                                                <span class="help-block">Para una buena descripcion necesitas al menos 160 caracteres. </span>
                                             </div>
+                                            
                                         </div>
 
                                        <!-- Prepended text-->
@@ -91,7 +92,7 @@
                                                 <div class="checkbox">
                                                     <label>
                                                         {{ form_widget(form.negotiable) }} 
-                                                        Negotiable </label>
+                                                        Negociable </label>
                                                 </div>
                                             </div>
                                         </div>
@@ -99,7 +100,7 @@
 
             <!-- photo -->
     <div class="form-group">
-        <label class="col-md-3 control-label" for="textarea"> Picture </label>
+        <label class="col-md-3 control-label" for="textarea"> Fotos </label>
         
          <div class="col-md-8">
                 <div class="mb10">
@@ -111,16 +112,16 @@
                 <div class="mb10">
                     <input type="file" id="ads_announcebundle_announcetype_imagenes_2"  name="ads_announcebundle_announcetype[imagenes][2]" class="file" data-preview-file-type="text"/>                    
                  </div> 
-                <p class="help-block">Add up to 3 photos. Use a real image of your product, not catalogs.</p>
+                <p class="help-block">Agrega hasta 3 fotos. Usa imangenes reales de tu producto, no catalogos.</p>
             </div>
     </div>
         
         <div class="row">
            <div class="col-sm-12">   
-              <div class="content-subheading"><i class="icon-user fa"></i> <strong>Seller information</strong></div>
+              <div class="content-subheading"><i class="icon-user fa"></i> <strong>Información de contacto</strong></div>
               <!-- Text input-->
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label" for="textinput-name">Name</label>
+                                            <label class="col-md-3 control-label" for="textinput-name">Nombre</label>
 
                                             <div class="col-md-8">
                                                 <input id="textinput-name" name="name"
@@ -131,7 +132,7 @@
               
               <!-- Text input-->
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label" for="textinput-name">Last Name</label>
+                                            <label class="col-md-3 control-label" for="textinput-name">Apellidos</label>
 
                                             <div class="col-md-8">
                                                 <input id="textinput-name" name="lastname"
@@ -142,8 +143,7 @@
 
                                         <!-- Appended checkbox -->
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label" for="seller-email"> Seller
-                                                Email</label>
+                                            <label class="col-md-3 control-label" for="seller-email"> Email contacto</label>
 
                                             <div class="col-md-8">
                                                 <input id="seller-email" name="email" class="form-control"
@@ -153,8 +153,7 @@
 
                                         <!-- Text input-->
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label" for="seller-Number">Phone
-                                                Number</label>
+                                            <label class="col-md-3 control-label" for="seller-Number">Teléfono</label>
 
                                             <div class="col-md-8">
                                                 <input id="seller-Number" name="cel"
@@ -165,13 +164,13 @@
 
                                         <!-- terms -->
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">Terms</label>
+                                            <label class="col-md-3 control-label">Términos</label>
 
                                             <div class="col-md-8">
                                                 <label class="checkbox-inline" for="checkboxes-0">
                                                     <input name="checkboxes" id="checkboxes-0"
                                                            value="Remember above contact information." type="checkbox">
-                                                    Remember above contact information. </label>
+                                                    Recordar información de contacto. </label>
                                             </div>
                                         </div>
               

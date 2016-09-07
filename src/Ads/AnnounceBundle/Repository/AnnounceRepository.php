@@ -37,8 +37,8 @@ class AnnounceRepository extends EntityRepository{
         ->select('a')                
         ->addSelect('COUNT(l) num')
         ->from('AnnounceBundle:Announce', 'a')
-        ->leftJoin('a.locality', 'l')
-        ->where('a.locality = :locality')
+        ->leftJoin('a.city', 'l')
+        ->where('a.city = :locality')
         ->setParameter('locality', $locality)
         ->groupBy('a.announceId')
         ->getQuery()                
@@ -89,7 +89,7 @@ class AnnounceRepository extends EntityRepository{
         $query = $em->createQuery('
             SELECT a 
             FROM AnnounceBundle:Announce a
-            WHERE a.subcategory = :subcategory AND a.locality = :locality 
+            WHERE a.subcategory = :subcategory AND a.city = :locality 
         ');
         $query->setParameter('subcategory', $subcategory);
         $query->setParameter('locality', $locality);
